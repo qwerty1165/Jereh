@@ -68,7 +68,7 @@ public class UpdateSaleQuotationServlet extends HttpServlet {
 		}
 		saleQuotation.setCustomercode(request.getParameter("customercode"));
 		saleQuotation.setCsName(request.getParameter("csName"));
-		saleQuotation.setContacter(request.getParameter("contacter"));
+		saleQuotation.setContacter(new String(request.getParameter("contacter").getBytes("iso8859-1"),"utf-8"));
 		saleQuotation.setTelphone(request.getParameter("telphone"));
 		saleQuotation.setFax(request.getParameter("fax"));
 		saleQuotation.setRemarks(request.getParameter("remarks"));

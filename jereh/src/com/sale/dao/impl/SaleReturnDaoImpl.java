@@ -58,7 +58,6 @@ public class SaleReturnDaoImpl extends BaseDao implements SaleReturnDao {
 		sql = "select count(*) from SALERETURN";
 		int total = super.executeTotalCount(sql);
 		pageBean.setRecordCount(total);
-
 		return pageBean;
 	}
 
