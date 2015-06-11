@@ -66,13 +66,15 @@ $(function(){
 							return "<a onclick=\"detail('"+row.code+"')\" href='#' >"+val+"</a>";
 						}
 					},
-					{field:'inDate',title:'入库日期',fixed:true},
-					{field:'inDate',title:'入库日期',fixed:true},
-					{field:'inDate',title:'入库日期',fixed:true},
-					{field:'inDate',title:'入库日期',fixed:true},
+					{field:'isShow',title:'是否显示',fixed:true},//hidden:true
+					{field:'isInvoice',title:'是否开票',fixed:true},
+					{field:'inType',title:'入库类型',fixed:true},
+					{field:'contacter',title:'联系人',fixed:true},
+					{field:'telphone',title:'电话',fixed:true},
+					{field:'fax',title:'传真',fixed:true},
+					
 					{field:'inDate',title:'入库日期',fixed:true},					
 					{field:'supplierName',title:'供应商名',fixed:true},
-					//{field:'supplierCode',title:'供应商名',fixed:true},
 					{field:'nums',title:'数量',fixed:80},
 					{field:'numsPrice',title:'总货值',fixed:true},
 					
@@ -170,20 +172,34 @@ function updateRow(idx){
 	var code=row.code;
 	var inDate=row.inDate;
 	var supplierName=row.supplierName;
-	var nums=row.nums;
+	var contacter=row.contacter;
+	var telphone=row.telphone;
+	var fax=row.fax;
 	var numsPrice=row.numsPrice;
+	var isRoad=row.isRoad;
+	var isInvoice=row.isInvioce;
 	var remarks=row.remarks;
 	$("input[name='code']").val(code).attr("readonly",true);
-	$("input[name='codeName']").val(codeName);
-	$("input[name='orderNo']").val(orderNo);
-	for(var i=0;i<isShows.length;i++){
-		if(isShows[i].checked){
-			$("input[name='isShow']").attr("checked",true);
-		}
-		break;
-	};	
+	$("#inDate").datebox("setValue",inDate);
+		
+	$("input[name='supplierName']").val(supplierName);	
+	$("input[name='contacter']").val(contacter);
+	$("input[name='telphone']").val(telphone);
+	$("input[name='fax']").val(fax);
+	$("input[name='numsPrice']").val(numsPrice);
+	if(isRoad==0){
+		$("input[name='isRoad']:first").prop("checked",true);
+	}else{
+		$("input[name='isRoad']:last").prop("checked",true);
+	};
+	if(isInvoice==1){
+		$("input[name='isInvoice']:first").prop("checked",true);
+	}else{
+		$("input[name='isInvoice']:last").prop("checked",true);
+	};
+	
 	$("input[name='remarks']").val(remarks);
-	$("select[name='categoryCode']").val(categoryCode);	
+		
 }
 
 
@@ -268,7 +284,7 @@ function searchFun(){
 			    <td class="td1"><span style="color:red">*</span>入库单号：</td>
 			    <td class="td2"><input name="code" type="text"/></td>
 			    <td class="td1"><span style="color:red">*</span>入库日期：</td>
-			    <td class="td2"><input name="addDate" type="text" class="easyui-datebox"/></td>
+			    <td class="td2"><input id="inDate" name="inDate" type="text" class="easyui-datebox"/></td>
 			</tr>
 			<tr>
 			 <td class="td1"><span style="color:red">*</span>供应商名：</td>
