@@ -219,8 +219,14 @@ function showName(){
           var row=$("#cusList").datagrid("getRows")[idx];
           var code=row.code;
           var csName=row.csName;
-           $("input[name='code']").val(code);
+          var contacter=row.contacter;
+          var fax = row.fax;
+          var telphone = row.telphone;
+           $("input[name='customercode']").val(code);
 		  $("input[name='csName']").val(csName);
+		  $("input[name='contacter']").val(contacter);
+		  $("input[name='fax']").val(fax);
+          $("input[name='telphone']").val(telphone);		  
        },
        url:'/jereh/BaseCustomerSupplier/GetBaseCustomerSupplierServlet',
        toolbar:'#cusListTb',
@@ -278,6 +284,7 @@ function addParts(){
 	<div id="dg">
     <form action="/jereh/SaleQuotation/UpdateSaleQuotationServlet" >
      <input type="hidden" name="opt" />
+     <input type="hidden" name="customercode" />
       <table border="1" style="border-collapse:collapse;">   
         <tr><td>报价编号：</td><td><input name="code" type="text"></td>
             <td>报价日期：</td><td><input id="sqDate" name="sqDate" type="text"  class="easyui-datebox"></td></tr>
