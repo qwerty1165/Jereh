@@ -228,7 +228,7 @@ function showName(){
 		  $("input[name='fax']").val(fax);
           $("input[name='telphone']").val(telphone);		  
        },
-        url:'/jereh/BaseCustomerSupplier/GetBaseCustomerSupplierServlet',
+       url:'/jereh/BaseCustomerSupplier/GetBaseCustomerSupplierServlet',
        toolbar:'#cusListTb',
 	   idField:'code',
        columns:[[{field:'code',title:'客户代码',fixed:true},

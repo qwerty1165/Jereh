@@ -28,8 +28,10 @@ $(function(){
 		}
 	});
 		//弹出添加窗口
-  	$("#dg").dialog({		
-		width:1000,height:500,
+  	$("#dg").dialog({
+  		resizable:true,
+  		fit:true,		
+		//width:1000,height:500,
 		modal:true,
 		closed:true			
 	});  
@@ -88,8 +90,6 @@ $(function(){
 		pageSize:10,
 	});	
 });
-
-
 function detail(incode){
 	$("#codeInfo").text(incode);
 	$("#detailInfo").show();
@@ -133,7 +133,16 @@ function detail(incode){
 	});		
 }
 
-
+function getCurDate(){
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+	var h = date.getHours();
+	var m = date.getMinutes();
+	var s=date.getSeconds();
+	return "MTRK"+year+month+day+h+m+s;
+}
 function showDailog(stitle){
 	$("#dg").dialog({title:stitle});
 	$("#dg").dialog("open");
@@ -141,46 +150,43 @@ function showDailog(stitle){
 function closeDailog(){
 	$("#dg").dialog("close");
 }
-
 function addRow(){
 	showDailog("添加入库数据");	
 	$("input[name='opt']").val("1");//opt=1表示添加，opt=2表示修改	
 	//清空数据
-	$("input[name='code']").val("").attr("readonly",false);
+	$("input[name='code']").val(getCurDate()).attr("readonly",false);
 	$("input[name='codeName']").val("");
 	$("input[name='orderNo']").val("");
 	$("input[name='isShow']").val("");
 	$("input[name='remarks']").val("");
 	$("select[name='categoryCode']").val("");	
 }
-
 function updateRow(idx){
 	showDailog("修改入库");
 	$("input[name='opt']").val("2");
 	var row=$("#list").datagrid("getRows")[idx];
-	
+	 
+	 
 	var code=row.code;//字典编号
 	var codeName=row.codeName;//字典名称
 	var categoryCode=row.categoryCode;//所属类别	
 	var orderNo=row.orderNo;//排序编号
 	var isShows=row.isShow;//显示状态
-	var remarks=row.remarks;//备注
-	
+	var remarks=row.remarks;//备注	
 	$("input[name='code']").val(code).attr("readonly",true);
 	$("input[name='codeName']").val(codeName);
 	$("input[name='orderNo']").val(orderNo);
-	
-	
 	for(var i=0;i<isShows.length;i++){
 		if(isShows[i].checked){
 			$("input[name='isShow']").attr("checked",true);
 		}
 		break;
-	};
-	
+	};	
 	$("input[name='remarks']").val(remarks);
 	$("select[name='categoryCode']").val(categoryCode);	
 }
+
+
 function delRow(code,categoryCode){
 	alert(categoryCode);
 	$.messager.confirm('警告','确定删除该记录吗？',function(r){
@@ -198,40 +204,11 @@ function delRow(code,categoryCode){
 		}
 	});	
 };
-function delBatchRow(){
-        //返回选中多行  
-	var selRow = $("#list").datagrid("getSelections");  
-        //判断是否选中行  
-	if (selRow.length==0) {  
-        $.messager.alert("提示", "请选择要删除的行！", "info");  
-        return;  
-    }else{                           
-        $.messager.confirm('提示', '是否删除选中数据?', function (r) {   
-            if (r) {  
-                //批量获取选中行的评估模板ID  
-                var count=0;
-		        for (i = 0; i < selRow.length;i++) {  
-				   var code=selRow[i].code;
-				   var categoryCode=selRow[i].categoryCode;           
-		           $.ajax({  
-		                type:'post',  
-		                async: false,  
-		                url: '/jereh/BaseContent/DeleteBaseContentServlet',  
-		               	data:{'code':code,'categoryCode':categoryCode},
-		             	success:function(data){
-							if(data==1){								
-								count++;							
-							}
-						}
-		            });               
-		        }
-			    $("#list").datagrid("reload");	 
-		        if(count==selRow.length){
-		        	alert("批量删除成功！");
-		        }
-            }   
-       });    
-   	}  
+
+
+function showSupplier(){
+
+
 }
 
 function searchFun(){
@@ -242,24 +219,7 @@ function searchFun(){
 	//searchFrm.submit();
 	$("#list").datagrid("reload",{code:code,startDate:startDate,endDate:endDate,supplierName:supplierName});	
 }
-function exportExcl(){
-	var code=$("input[name='code']").val();
-	var name=$("input[name='name']").val();
-	var categoryCode=$("select[name='categoryCode']").val();
-	window.location.href="/jereh/excl/OutputExcelBaseContentServlet?code="+code+"&name="+name+"&categoryCode="+categoryCode;
-}
 
-function exportWord(){
-	var code=$("input[name='code']").val();//row.code;//字典编号
-	var startDate=$("input[name='startDate']").val();//row.codeName;//字典名称
-	var categoryCode=$("select[name='categoryCode']").val();//row.categoryCode;//所属类别	
-	var orderNo=$("input[name='orderNo']").val();//row.orderNo;//排序编号
-	var isShow=$("input[name='isShow']").val();//row.isShow;//显示状态
-	var remarks=$("input[name='remarks']").val();//row.remarks;//备注 
-	window.location.href="/jereh/word/OutputWordBaseContentServlet?code="+code
-		+"&codeName="+codeName+"&categoryCode="+categoryCode
-		+"&orderNo="+orderNo+"&isShow="+isShow+"&remarks="+remarks;
-}
 </script>
 <style>
 #searchFrm{
@@ -309,7 +269,7 @@ function exportWord(){
 			    <td class="td1"><span style="color:red">*</span>入库日期：</td><td class="td2"><input name="addDate" type="text" class="easyui-datebox"/></td>
 			</tr>
 			<tr>
-			 <td class="td1"><span style="color:red">*</span>供应商名：</td><td class="td2"><input name="supplierName" type="text" /></td>
+			 <td class="td1"><span style="color:red">*</span>供应商名：</td><td class="td2"><input name="supplierName" readonly type="text" onclick="showSupplier()"/></td>
 			 <td class="td1"><span style="color:red">*</span>联系人员：</td><td class="td2"><input name="contacter" type="text" /></td>			 
 			</tr>
 			<tr>
@@ -337,5 +297,22 @@ function exportWord(){
 			<input type="button" name="close" value="关闭" onclick="closeDailog();" />
 		</form>
 	</div>	
+	
+	
+	
+	<!-- 客户选择 -->    
+     <div id="customer">
+	     <div id="cusListTb">
+		       <form action="" method="post" >
+		          <b>检索条件：</b>
+		          	客户代码:<input type="text"/> 
+		          	客户名称:<input type="text"/>
+		          	<input type="button" value="搜索" onclick=""/>
+					<input type="reset" value="重置" />
+		       </form>
+	       </div>
+		 <div id="cusList"></div>
+     </div>
+     
 </body>
 </html>
