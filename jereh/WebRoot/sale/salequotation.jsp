@@ -222,7 +222,7 @@ function showName(){
            $("input[name='code']").val(code);
 		  $("input[name='csName']").val(csName);
        },
-        url:'/jereh/BaseCustomerSupplier/GetBaseCustomerSupplierServlet',
+       url:'/jereh/BaseCustomerSupplier/GetBaseCustomerSupplierServlet',
        toolbar:'#cusListTb',
 	   idField:'code',
        columns:[[{field:'code',title:'客户代码',fixed:true},
