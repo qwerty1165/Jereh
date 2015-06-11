@@ -7,70 +7,81 @@ package com.sale.entity;
  *
  */
 public class SaleReturnDetail {
-	private String code;// 明细主键
-	private String xtCode;// 销退单号
-	private String ckCode;// 出库单号
-	private String pCode;// 配件编号
-	private int unms;// 配件数量
-	private String remarks;// 备注
+	
+	private String outCode;// 出库单号
+	private String partsNo;// 件号
+	private String partsName;// 配件名称
+	private String partsBrand;// 配件品牌
+	private String partsModle;// 配件型号
+	private int number;// 数量
+	private long salePrice;// 单价
 
-	public String getCode() {
-		return code;
+	public String getOutCode() {
+		return outCode;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setOutCode(String outCode) {
+		this.outCode = outCode;
 	}
 
-	public String getXtCode() {
-		return xtCode;
+	public String getPartsNo() {
+		return partsNo;
 	}
 
-	public void setXtCode(String xtCode) {
-		this.xtCode = xtCode;
+	public void setPartsNo(String partsNo) {
+		this.partsNo = partsNo;
 	}
 
-	public String getCkCode() {
-		return ckCode;
+	public String getPartsName() {
+		return partsName;
 	}
 
-	public void setCkCode(String ckCode) {
-		this.ckCode = ckCode;
+	public void setPartsName(String partsName) {
+		this.partsName = partsName;
 	}
 
-	public String getpCode() {
-		return pCode;
+	public String getPartsBrand() {
+		return partsBrand;
 	}
 
-	public void setpCode(String pCode) {
-		this.pCode = pCode;
+	public void setPartsBrand(String partsBrand) {
+		this.partsBrand = partsBrand;
 	}
 
-	public int getUnms() {
-		return unms;
+	public String getPartsModle() {
+		return partsModle;
 	}
 
-	public void setUnms(int unms) {
-		this.unms = unms;
+	public void setPartsModle(String partsModle) {
+		this.partsModle = partsModle;
 	}
 
-	public String getRemarks() {
-		return remarks;
+	public int getNumber() {
+		return number;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
-	public SaleReturnDetail(String code, String xtCode, String ckCode,
-			String pCode, int unms, String remarks) {
+	public long getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(long salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public SaleReturnDetail(String outCode, String partsNo, String partsName,
+			String partsBrand, String partsModle, int number, long salePrice) {
 		super();
-		this.code = code;
-		this.xtCode = xtCode;
-		this.ckCode = ckCode;
-		this.pCode = pCode;
-		this.unms = unms;
-		this.remarks = remarks;
+		this.outCode = outCode;
+		this.partsNo = partsNo;
+		this.partsName = partsName;
+		this.partsBrand = partsBrand;
+		this.partsModle = partsModle;
+		this.number = number;
+		this.salePrice = salePrice;
 	}
 
 	public SaleReturnDetail() {

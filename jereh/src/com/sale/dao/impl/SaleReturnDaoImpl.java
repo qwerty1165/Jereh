@@ -83,17 +83,22 @@ public class SaleReturnDaoImpl extends BaseDao implements SaleReturnDao {
 	@Override
 	public int update(SaleReturn saleReturn, String code) {
 		// TODO Auto-generated method stub
-		String sql = "update SALERETURN set XTDATE=?,CUSTOMERCODE=?,CONTACTER=?,TELPHONE=?,FAX=?,REMARKS=?,ISSHOW=?,NUMS=?,NUMSPRICE=?,STATE=?,COMPCODE=?,ADDDATE=sysdate,ADDUSER=?,ADDUSERNAME=?,ADDIP=? where CODE=?";
+		//String sql = "update SALERETURN set XTDATE=?,CUSTOMERCODE=?,CONTACTER=?,TELPHONE=?,FAX=?,REMARKS=?,ISSHOW=?,NUMS=?,NUMSPRICE=?,STATE=?,COMPCODE=?,ADDDATE=sysdate,ADDUSER=?,ADDUSERNAME=?,ADDIP=? where CODE=?";
+		String sql = "update SALERETURN set CONTACTER=?,TELPHONE=?,FAX=?,REMARKS=? where CODE=?";
 		return super.executeUpdate(
 				sql,
-				new Object[] { saleReturn.getXtDate(),
-						saleReturn.getCustomerCode(),
-						saleReturn.getContacter(), saleReturn.getTelPhone(),
-						saleReturn.getFax(), saleReturn.getRemarks(),
-						saleReturn.getIsShow(), saleReturn.getNums(),
-						saleReturn.getNumSprice(), saleReturn.getState(),
-						saleReturn.getCompCode(), saleReturn.getAddUser(),
-						saleReturn.getAddUserName(), saleReturn.getAddIp(),
+				new Object[] { 
+						//saleReturn.getXtDate(),
+						//saleReturn.getCustomerCode(),
+						saleReturn.getContacter(), 
+						saleReturn.getTelPhone(),
+						saleReturn.getFax(), 
+						saleReturn.getRemarks(),
+//						saleReturn.getIsShow(), 
+//						saleReturn.getNums(),
+//						saleReturn.getNumSprice(), saleReturn.getState(),
+//						saleReturn.getCompCode(), saleReturn.getAddUser(),
+//						saleReturn.getAddUserName(), saleReturn.getAddIp(),
 						code });
 	}
 

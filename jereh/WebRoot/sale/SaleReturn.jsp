@@ -165,55 +165,60 @@ hr {
 							singleSelect : false,
 							selectOnCheck : true,
 							checkOnSelect : false,
-							url : '/jereh/servlet/GetBasePartsCategoryJsonServlet',
+							url : '/jereh/sale/GetSaleReturnDetailServlet',
 							columns : [ [
 									{
-										field : 'code',
+										field : 'outCode',
 										title : '出库单号',
 										width : 150,
 										align : 'center'
 									},
 									{
-										field : 'cateGoryName',
+										field : 'partsNo',
 										title : '件号',
 										width : 100,
 										align : 'center'
 									},
 									{
-										field : 'addDate',
+										field : 'partsName',
 										title : '配件名称',
 										width : 100,
 										align : 'center'
 									},
 									{
-										field : 'remarks',
+										field : 'partsBrand',
 										title : '配件品牌',
 										width : 100,
 										align : 'center'
 									},
 									{
-										field : 'addUserName',
+										field : 'partsModle',
 										title : '配件型号',
 										width : 100,
 										align : 'center'
 									},
 									{
-										field : 'addUserName',
+										field : 'number',
 										title : '数量',
 										width : 50,
 										align : 'center'
 									},
 									{
-										field : 'addUserName',
+										field : 'salePrice',
 										title : '单价',
 										width : 150,
 										align : 'center'
 									},
 									{
-										field : 'addUserName',
+										field : 'sumPrice',
 										title : '金额',
 										width : 150,
-										align : 'center'
+										align : 'center',
+										formatter : function(val, row, idx) {
+											var sumPrice = row.salePrice
+													* row.number;
+											return sumPrice;
+										}
 									},
 									{
 										field : 'addUserName',

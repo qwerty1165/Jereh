@@ -36,6 +36,7 @@ public class DeleteSaleReturnServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
 		String code = request.getParameter("code");
-		saleReturnService.deleteSaleReturn(code);
+		int ret=saleReturnService.deleteSaleReturn(code);
+		response.getWriter().println(ret);
 	}
 }

@@ -39,20 +39,21 @@ public class UpdataSaleReturnServlet extends HttpServlet {
 
 		String code = request.getParameter("code");
 		// String xtDate =request.getParameter("xtDate");
-		String customerCode = request.getParameter("customerCode");
+		//String customerCode = request.getParameter("customerCode");
 		String contacter = request.getParameter("contacter");
 		String telPhone = request.getParameter("telPhone");
 		String fax = request.getParameter("fax");
 		String remarks = request.getParameter("remarks");
-
+		
 		saleReturn = new SaleReturn();
-		saleReturn.setCustomerCode(customerCode);
+		//saleReturn.setCustomerCode(customerCode);
 		saleReturn.setContacter(contacter);
 		saleReturn.setTelPhone(telPhone);
+		saleReturn.setFax(fax);
 		saleReturn.setRemarks(remarks);
-
+		
 		SaleReturnService saleReturnService = new SaleReturnServiceImpl();
-		if (opt.equals("update")) {
+		if (opt.equals("updata")) {
 			saleReturnService.updataSaleReturn(saleReturn, code);
 		} else if (opt.equals("add")) {
 			saleReturnService.addSaleReturn(saleReturn);
