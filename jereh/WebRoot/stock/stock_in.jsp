@@ -10,6 +10,16 @@
 <link type="text/css" href="/jereh/themes/default/easyui.css" rel="stylesheet"/>
 
 <script type="text/javascript">
+function getCurDate(){
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+	var h = date.getHours();
+	var m = date.getMinutes();
+	var s=date.getSeconds();
+	return "MTRK"+year+month+day+h+m+s;
+}
 $(function(){
 	//格式化日期
 	$("input.easyui-datebox").datebox({
@@ -38,6 +48,7 @@ $(function(){
 	$("#dg").dialog("close");
 	
 	$("#detailInfo").hide();
+	
 	$("#list").datagrid({
 		url:'/jereh/StockIn/GetStockInServlet',	
 		idField:'code',		
@@ -55,6 +66,10 @@ $(function(){
 							return "<a onclick=\"detail('"+row.code+"')\" href='#' >"+val+"</a>";
 						}
 					},
+					{field:'inDate',title:'入库日期',fixed:true},
+					{field:'inDate',title:'入库日期',fixed:true},
+					{field:'inDate',title:'入库日期',fixed:true},
+					{field:'inDate',title:'入库日期',fixed:true},
 					{field:'inDate',title:'入库日期',fixed:true},					
 					{field:'supplierName',title:'供应商名',fixed:true},
 					//{field:'supplierCode',title:'供应商名',fixed:true},
@@ -76,7 +91,7 @@ $(function(){
 								return "审核中";						
 						}
 					},	
-					{field:'remarks',title:'操作员',fixed:true},
+					{field:'addUserName',title:'操作员',fixed:true},
 					{field:'opt',title:'操作',fixed:true
 					,formatter:function(val,row,idx){
 							var opt="<input type='button' value='删除' onclick=\"delRow('"+row.code+"','"+row.categoryCode+"')\"/>";
@@ -87,7 +102,7 @@ $(function(){
 				]],				
 		pagination:true,//分页 
 		pageList:[3,5,10],//设置分页尺寸下拉列表中的数据
-		pageSize:10,
+		pageSize:10
 	});	
 });
 function detail(incode){
@@ -95,8 +110,7 @@ function detail(incode){
 	$("#detailInfo").show();
 	$("#detailList").datagrid({
 		url:'/jereh/StockIn/GetStockInDetailServlet',		
-		queryParams:{'inCode':incode},			
-		//singleSelect:false,
+		queryParams:{'inCode':incode},		
 		success:function(data){//data是GetChannelServlet中取得的json数据	
 			if(data.total==0){
 				alert("没有数据！");	
@@ -128,20 +142,8 @@ function detail(incode){
 					},
 					{field:'wareHouse',title:'所属仓库',fixed:true},					
 					{field:'remarks',title:'备注',fixed:true},					
-				]],		
-		//fit:true
+				]],			
 	});		
-}
-
-function getCurDate(){
-	var date = new Date();
-	var year = date.getFullYear();
-	var month = date.getMonth() + 1;
-	var day = date.getDate();
-	var h = date.getHours();
-	var m = date.getMinutes();
-	var s=date.getSeconds();
-	return "MTRK"+year+month+day+h+m+s;
 }
 function showDailog(stitle){
 	$("#dg").dialog({title:stitle});
@@ -164,15 +166,13 @@ function addRow(){
 function updateRow(idx){
 	showDailog("修改入库");
 	$("input[name='opt']").val("2");
-	var row=$("#list").datagrid("getRows")[idx];
-	 
-	 
-	var code=row.code;//字典编号
-	var codeName=row.codeName;//字典名称
-	var categoryCode=row.categoryCode;//所属类别	
-	var orderNo=row.orderNo;//排序编号
-	var isShows=row.isShow;//显示状态
-	var remarks=row.remarks;//备注	
+	var row=$("#list").datagrid("getRows")[idx];	 
+	var code=row.code;
+	var inDate=row.inDate;
+	var supplierName=row.supplierName;
+	var nums=row.nums;
+	var numsPrice=row.numsPrice;
+	var remarks=row.remarks;
 	$("input[name='code']").val(code).attr("readonly",true);
 	$("input[name='codeName']").val(codeName);
 	$("input[name='orderNo']").val(orderNo);
@@ -265,24 +265,33 @@ function searchFun(){
 		<input type="hidden" name="opt" />
 			<table   border="1"  bordercolor="#EBEBEB"   cellpadding="0" cellspacing="0">
 			<tr>
-			    <td class="td1"><span style="color:red">*</span>入库单号：</td><td class="td2"><input name="code" type="text"/></td>
-			    <td class="td1"><span style="color:red">*</span>入库日期：</td><td class="td2"><input name="addDate" type="text" class="easyui-datebox"/></td>
+			    <td class="td1"><span style="color:red">*</span>入库单号：</td>
+			    <td class="td2"><input name="code" type="text"/></td>
+			    <td class="td1"><span style="color:red">*</span>入库日期：</td>
+			    <td class="td2"><input name="addDate" type="text" class="easyui-datebox"/></td>
 			</tr>
 			<tr>
-			 <td class="td1"><span style="color:red">*</span>供应商名：</td><td class="td2"><input name="supplierName" readonly type="text" onclick="showSupplier()"/></td>
-			 <td class="td1"><span style="color:red">*</span>联系人员：</td><td class="td2"><input name="contacter" type="text" /></td>			 
+			 <td class="td1"><span style="color:red">*</span>供应商名：</td>
+			 <td class="td2"><input name="supplierName" readonly type="text" onclick="showSupplier()"/></td>
+			 <td class="td1"><span style="color:red">*</span>联系人员：</td>
+			 <td class="td2"><input name="contacter" type="text" /></td>			 
 			</tr>
 			<tr>
-				<td class="td1">电话：</td><td class="td2"><input name="telphone" type="text" /></td>
-			    <td class="td1">传真：</td><td class="td2"><input name="fax" type="text"/></td>
+				<td class="td1">电话：</td>
+				<td class="td2"><input name="telphone" type="text" /></td>
+			    <td class="td1">传真：</td>
+			    <td class="td2"><input name="fax" type="text"/></td>
 			</tr>
 			<tr>
-				<td class="td1">入库类型：</td><td class="td2"><select name="inType"></select><input name="isRoad" type="radio" value="0"/>正常入库<input name="isRoad" type="radio" value="1"/>冲抵入库</td>
-			    <td class="td1"><span style="color:red">*</span>是否开票</td><td class="td2"><input name="isInvoice" type="radio" value="1"/>是<input name="fax" type="radio" value="0"/>否</td>
+				<td class="td1">入库类型：</td>
+				<td class="td2"><!-- <select name="inType"></select> -->
+				<input name="isRoad" type="radio" value="0"/>正常入库<input name="isRoad" type="radio" value="1"/>冲抵入库</td>
+			    <td class="td1"><span style="color:red">*</span>是否开票</td>
+			    <td class="td2"><input name="isInvoice" type="radio" value="1"/>是<input name="fax" type="radio" value="0"/>否</td>
 			</tr>
 			<tr>
-				<td class="td1">备注：</td><td colspan="3" class="td2"><input name="remarks" type="text"/></td>
-			    
+				<td class="td1">备注：</td>
+				<td colspan="3" class="td2"><input name="remarks" type="text"/></td>			    
 			</tr>
 			</table><br/>
 			<input type="button" value="新增" onclick="" />
