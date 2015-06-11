@@ -65,8 +65,11 @@ hr {
 										width : 150,
 										align : 'center',
 										formatter : function(val, row, idx) {
-											var content = "<a href='#' onclick='showInfo()'>"
-													+ val + "</a>";
+											var content = "<a href='#' onclick=\"showInfo('"
+													+ val
+													+ "')\">"
+													+ val
+													+ "</a>";
 											return content;
 										},
 									},
@@ -149,6 +152,7 @@ hr {
 	});
 
 	function showInfo(code) {
+		$("#ghost").html("单据标号为：" + code + " 的明细如下所列！");
 		$("#infoTb").show();
 		$("#info")
 				.datagrid(
@@ -407,8 +411,7 @@ hr {
 
 
 	<div class="infoTb" id="infoTb" style="background-color: #FFFFFF;">
-		<span id="" class="ghost" style="font-weight: bold;"> 这是什么鬼？？？
-		</span>
+		<span id="ghost" class="ghost" style="font-weight: bold;"> </span>
 		<div id="info"></div>
 	</div>
 
