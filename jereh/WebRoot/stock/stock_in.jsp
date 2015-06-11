@@ -165,7 +165,8 @@ function updateRow(idx){
 	showDailog("修改入库");
 	$("input[name='opt']").val("2");
 	var row=$("#list").datagrid("getRows")[idx];
-	
+	 
+	 
 	var code=row.code;//字典编号
 	var codeName=row.codeName;//字典名称
 	var categoryCode=row.categoryCode;//所属类别	
