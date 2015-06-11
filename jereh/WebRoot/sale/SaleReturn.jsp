@@ -33,6 +33,14 @@ hr {
 </style>
 <script type="text/javascript">
 	$(function() {
+		$("#addParts").dialog({
+			title : '',
+			width : 750,
+			heigth : 500,
+			modal : true,
+			closed : true
+		});
+		$("#addParts").dialog("close");
 		$("#infoTb").hide();
 		$("#barList")
 				.datagrid(
@@ -45,7 +53,7 @@ hr {
 							singleSelect : false,
 							selectOnCheck : true,
 							checkOnSelect : false,
-							url : '/jereh/sale/GetSaleReturnDetailServlet',
+							url : '/jereh/sale/GetSaleReturnServlet',
 							columns : [ [
 									{
 										field : 'id',
@@ -135,8 +143,9 @@ hr {
 									} ] ],
 							pagination : true,
 							pageList : [ 5, 10, 20 ],
-							pageSize : 10,
+							pageSize : 10
 						});
+
 	});
 
 	function showInfo(code) {
@@ -224,26 +233,25 @@ hr {
 	};
 
 	function delRow(code) {
-		$.messager
-				.confirm(
-						"删除提醒",
-						"确认要执行删除操作吗?",
-						function(r) {
-							if (r) {
-								/*$.ajax({url:'/jereh/servlet/DeleteBasePartsCategoryServlet',
-									data:{'code':code},
-									type:'post',
-									success:function(data){
-										if(data==1){
-											alert("删除成功！");
-											$("#barList").datagrid("reload");							
-										}
-									}
-								});	*/
-								window.location.href = "../servlet/DeleteBasePartsCategoryServlet?code="
-										+ code;
-							}
-						})
+		$.messager.confirm("删除提醒", "确认要执行删除操作吗?", function(r) {
+			if (r) {
+				$.ajax({
+					url : '/jereh/sale/DeleteSaleReturnServlet',
+					data : {
+						'code' : code
+					},
+					type : 'post',
+					success : function(data) {
+						if (data == 1) {
+							alert("删除成功！");
+							$("#barList").datagrid("reload");
+						}
+					}
+				});
+				//	window.location.href = "../servlet/DeleteBasePartsCategoryServlet?code="
+				//			+ code;
+			}
+		})
 	};
 
 	function showDialog(stitle) {
@@ -270,29 +278,24 @@ hr {
 
 	function updateRow(idx) {
 		//var idx=idx;
-		showDialog('修改配件类别');
+		showDialog('销售选项');
 		$("input[name='opt']").val("updata");
 		var row = $("#barList").datagrid("getRows")[idx];
 		var code = row.code;
-		var cateGoryName = row.cateGoryName;
+		//var xtDate = row.xtDate;
+		var customerCode = row.customerCode;
+		var contacter = row.contacter;
+		var telPhone = row.telPhone;
+		var fax = row.fax;
 		var remarks = row.remarks;
-		var isShow = row.isShow;
-		var pCode = row.pCode;
 		$("input[name='code']").val(code);
-		$("input[name='cateGoryName']").val(cateGoryName);
+		//$("input[name='xtDate']").val(xtDate);
+		$("input[name='customerCode']").val(customerCode);
+		$("input[name='contacter']").val(contacter);
+		$("input[name='telPhone']").val(telPhone);
+		$("input[name='fax']").val(fax);
 		$("input[name='remarks']").val(remarks);
-		if (pCode == "001") {
-			$("select[name='pCode'] > option:eq(0)").prop("selected", true);
-		} else if (pCode == "002") {
-			$("select[name='pCode'] > option:eq(1)").prop("selected", true);
-		} else {
-			$("select[name='pCode'] > option:eq(2)").prop("selected", true);
-		}
-		if (isShow == 1) {
-			$("input[name='isShow']:first").prop("checked", true);
-		} else {
-			$("input[name='isShow']:last").prop("checked", true);
-		}
+
 	}
 
 	function checkDelete() {
@@ -303,40 +306,35 @@ hr {
 			$.messager.alert("提示", "请选择要删除的行！", "info");
 			return;
 		} else {
-			$.messager
-					.confirm(
-							"删除提醒",
-							"确认要执行删除操作吗?",
-							function(r) {
-								if (r) {
-									//var count = 0;
-									for (i = 0; i < selRows.length; i++) {
-										var code = selRows[i].code;
-										var categoryCode = selRows[i].categoryCode;
-										$
-												.ajax({
-													type : 'post',
-													async : false,
-													url : '/jereh/servlet/DeleteBasePartsCategoryServlet',
-													data : {
-														'code' : code
-													},
-													success : function(data) {
-														if (data == 1) {
-															count++;
-														}
-													}
-												});
-									}
-									//location.reload() ;
-									$("#barList").datagrid("reload");
-									//if (count == selRows.length) {
-									//alert("批量删除成功！");
-									//}
-									//window.location.href = "../servlet/DeleteBasePartsCategoryServlet?code="
-									//		+ code;
+			$.messager.confirm("删除提醒", "确认要执行删除操作吗?", function(r) {
+				if (r) {
+					//var count = 0;
+					for (i = 0; i < selRows.length; i++) {
+						var code = selRows[i].code;
+						var categoryCode = selRows[i].categoryCode;
+						$.ajax({
+							type : 'post',
+							async : false,
+							url : '/jereh/sale/DeleteSaleReturnServlet',
+							data : {
+								'code' : code
+							},
+							success : function(data) {
+								if (data == 1) {
+									count++;
 								}
-							})
+							}
+						});
+					}
+					//location.reload() ;
+					$("#barList").datagrid("reload");
+					//if (count == selRows.length) {
+					alert("批量删除成功！");
+					//}
+					//window.location.href = "../servlet/DeleteBasePartsCategoryServlet?code="
+					//		+ code;
+				}
+			})
 		}
 	}
 
@@ -368,20 +366,11 @@ hr {
 
 	function outWord() {
 		var code = $("input[name='code']").val();
-		/*var pCode=$("select[name='pCode']").val();
-		var cateGoryName=$("input[name='cateGoryName']").val();
-		var isShow=$("input[name='isShow']").val();
-		var remarks=$("input[name='remarks']").val();*/
 		$.ajax({
 			type : 'post',
 			url : '../servlet/OutputWordBasePartsCategoryServlet',
 			data : {
 				'code' : code
-			/*,
-									'pCode' : pCode,
-									'cateGoryName' : cateGoryName,
-									'isShow' : isShow,
-									'remarks' : remarks*/
 			}
 		});
 	}
@@ -425,32 +414,39 @@ hr {
 
 
 
-	<!--  <div id="addParts" style="padding:10px;">
-		<form action="../servlet/UpdataBasePartsCategoryServlet" method="post"
+	<div id="addParts" style="padding:10px;">
+		<form action="../sale/UpdataSaleReturnServlet" method="post"
 			class="dialog">
 			<table border="1" bordercolor="#CFDAE8" cellpadding="0"
 				cellspacing="0">
 				<input type="hidden" name="id" />
 				<input type="hidden" name="opt" />
+
 				<tr>
-					<td style="width: 100px; text-align: right">所属类别：</td>
-					<td style="width: 200px;"><select name="pCode" id="pCode">
-							<option value="001">一级类别</option>
-							<option value="002">二级类别</option>
-							<option value="003">三级类别</option>
-					</select></td>
-					<td style="width: 100px; text-align: right">类别编号：</td>
+
+					<td style="width: 100px; text-align: right">销退编号：</td>
 					<td style="width: 200px;"><input type="text" id="code"
 						name="code" readonly="true" /></td>
+					<td style="width: 100px; text-align: right">销退日期：</td>
+					<td style="width: 200px;">
+						<!--  <input id="xtDate" name="xtDate"
+						type="text" class="easyui-datebox" required="required">
+						</input>-->
+					</td>
+				</tr>
+
+				<tr>
+					<td style="width: 100px; text-align: right">客户名称：</td>
+					<td><input type="text" id="customerCode" name="customerCode"
+						readonly="true" /></td>
+					<td style="width: 100px; text-align: right">联系人员：</td>
+					<td><input type="text" id="contacter" name="contacter"></td>
 				</tr>
 				<tr>
-					<td style="width: 100px; text-align: right">类别名称：</td>
-					<td><input type="text" id="cateGoryName" name="cateGoryName" />
-					</td>
-					<td style="width: 100px; text-align: right">显示状态：</td>
-					<td><input type="radio" name="isShow" id="isShow" value="1"
-						checked="checked" />显示 <input type="radio" name="isShow"
-						id="isShow" value="0" />隐藏</td>
+					<td style="width: 100px; text-align: right">电话：</td>
+					<td><input type="text" id="telPhone" name="telPhone" /></td>
+					<td style="width: 100px; text-align: right">传真：</td>
+					<td><input type="text" id="fax" name="fax"></td>
 				</tr>
 				<tr>
 					<td style="width: 100px; text-align: right">备注：</td>
@@ -458,12 +454,16 @@ hr {
 						value="" style="width: 600px;" /></td>
 				</tr>
 			</table>
-			<input type="submit" name="" id="" value="保   存" class="button" /> <input
+			<input type="submit" name="" id="" value="新   增" class="button" /> <input
+				type="submit" name="" id="" value="选出库单" class="button" /> <input
+				type="submit" name="" id="" value="保   存" class="button" /> <input
+				type="submit" name="" id="" value="审   核" class="button" /> <input
+				type="submit" name="" id="" value="撤   销" class="button" /> <input
 				type="button" name="" id="" value="打   印" class="button"
 				onclick="outWord()" /> <input type="button" name="" id=""
 				value="返   回" class="button" onclick="closeDialog()" />
 		</form>
-	</div>-->
+	</div>
 </body>
 
 </html>

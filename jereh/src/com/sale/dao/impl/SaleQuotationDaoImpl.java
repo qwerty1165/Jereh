@@ -10,8 +10,6 @@ import com.sale.dao.SaleQuotationDao;
 import com.base.entity.BaseCustomerSupplier;
 import com.sale.entity.SaleQuotation;
 import com.sale.entity.SaleQuotation_Detail;
-import com.sun.crypto.provider.RSACipher;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.common.dao.BaseDao;
 import com.common.entity.PageBean;
 
