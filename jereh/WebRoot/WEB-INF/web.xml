@@ -179,6 +179,11 @@
 		<servlet-name>UpdataSaleReturnServlet</servlet-name>
 		<servlet-class>com.sale.servlet.UpdataSaleReturnServlet</servlet-class>
 	</servlet>
+  <servlet>
+    <servlet-name>UpdateStockInServlet</servlet-name>
+    <servlet-class>com.stock.servlet.UpdateStockInServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -365,6 +370,10 @@
 		<servlet-name>UpdateSaleQuotationServlet</servlet-name>
 		<url-pattern>/SaleQuotation/UpdateSaleQuotationServlet</url-pattern>
 	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateStockInServlet</servlet-name>
+    <url-pattern>/StockIn/UpdateStockInServlet</url-pattern>
+  </servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
