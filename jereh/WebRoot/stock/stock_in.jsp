@@ -66,12 +66,12 @@ $(function(){
 							return "<a onclick=\"detail('"+row.code+"')\" href='#' >"+val+"</a>";
 						}
 					},
-					{field:'isShow',title:'是否显示',fixed:true},//hidden:true
-					{field:'isInvoice',title:'是否开票',fixed:true},
-					{field:'inType',title:'入库类型',fixed:true},
-					{field:'contacter',title:'联系人',fixed:true},
-					{field:'telphone',title:'电话',fixed:true},
-					{field:'fax',title:'传真',fixed:true},
+					{field:'isShow',title:'是否显示',hidden:true},//hidden:true
+					{field:'isInvoice',title:'是否开票',hidden:true},
+					{field:'inType',title:'入库类型',hidden:true},
+					{field:'contacter',title:'联系人',hidden:true},
+					{field:'telphone',title:'电话',hidden:true},
+					{field:'fax',title:'传真',hidden:true},
 					
 					{field:'inDate',title:'入库日期',fixed:true},					
 					{field:'supplierName',title:'供应商名',fixed:true},
@@ -196,8 +196,7 @@ function updateRow(idx){
 		$("input[name='isInvoice']:first").prop("checked",true);
 	}else{
 		$("input[name='isInvoice']:last").prop("checked",true);
-	};
-	
+	};	
 	$("input[name='remarks']").val(remarks);
 		
 }
