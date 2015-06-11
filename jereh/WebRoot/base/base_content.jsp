@@ -80,7 +80,9 @@ $(function(){
 		pageList:[3,5,10],//设置分页尺寸下拉列表中的数据
 		pageSize:10,
 	});	
-	
+	$('#list').datagrid('getPager').pagination({
+    	displayMsg:'当前显示从第 {from} 条到第 {to} 条，共 {total} 条记录'
+	});
 	
 });
 function showDailog(stitle){

@@ -27,6 +27,9 @@ hr {
 </style>
 <script type="text/javascript">
 	$(function() {
+	$("#barList").datagrid('getPager').pagination({
+    	displayMsg:'当前显示从第 {from} 条到第 {to} 条，共 {total} 条记录'
+	});
 		$("#barList")
 				.datagrid(
 						{
