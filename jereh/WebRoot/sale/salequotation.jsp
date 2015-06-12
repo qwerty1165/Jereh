@@ -25,7 +25,7 @@ body{
 
 $(function(){
     $("#showData").hide();
-    $("#List").hide();
+    
       
     $("#customer").dialog({		
 		width:800,high:400,
@@ -170,17 +170,26 @@ function closeDialog(){
 //添加订单
 function addData(){
 	showDailog("添加报价单");	
+	$("#SList").hide();	
 	$("input[name='opt']").val("1");//opt=1表示添加，opt=2表示修改		
 	$("input[name='code']").val(getCurDate());
+	$("#sqDate").datebox("setValue",new Date);
+	$("input[name='csName']").val("");
+	$("input[name='contacter']").val("");
+	$("input[name='telphone']").val("");
+	$("input[name='fax']").val("");
+	$("input[name='remarks']").val("");
 }
 //修改订单
 function updateRow(idx){
-	showDailog("修改报价单");	
+	showDailog("修改报价单");
+	$("#SList").show();	
 	$("input[name='opt']").val("2");//opt=1表示添加，opt=2表示修改	
 	var row=$("#barList").datagrid("getRows")[idx];	
 	var code = row.code;
 	var sqDate = row.sqDate;
 	var csName = row.csName;
+	var customercode = row.customercode;
 	var contacter = row.contacter;
 	var telphone = row.telphone;
 	var fax = row.fax;
@@ -188,21 +197,26 @@ function updateRow(idx){
 	$("input[name='code']").val(code).attr("readonly",true);
 	$("#sqDate").datebox("setValue",sqDate);
 	$("input[name='csName']").val(csName);
+	$("input[name='customercode']").val(customercode);
 	$("input[name='contacter']").val(contacter);
 	$("input[name='telphone']").val(telphone);
 	$("input[name='fax']").val(fax);
 	$("input[name='remarks']").val(remarks);
-	
-    $("#List").show();
+
     $("#List").datagrid({
-		url:'',
+		url:'/jereh/SaleQuotation/GetSaleQuotationDetailServlet',
+		queryParams:{'code':code},
 		columns:[[{field:'partsNo',title:'件号',fixed:true},
+		          {field:'pcode',title:'件号',hidden:true},
 		          {field:'partsName',title:'配件名称',fixed:true},
 		          {field:'partsBrand',title:'配件品牌',fixed:true},
 		          {field:'partsModel',title:'配件型号',fixed:true},
 		          {field:'nums',title:'数量',fixed:true},
 		          {field:'price',title:'单价',fixed:true},
-		          {field:'numsPrice',title:'金额',fixed:true},
+		          {field:'numsPrice',title:'金额',fixed:true,
+		            formatter:function(val,row,idx){
+		              return row.nums*row.price;
+		          }},
 		          {field:'deliveryMode',title:'交货期',fixed:true},
 		          {field:'remarks',title:'备注',fixed:true},
 		          {field:'opt',title:'操作',fixed:true,
@@ -221,12 +235,12 @@ function showName(){
           var csName=row.csName;
           var contacter=row.contacter;
           var fax = row.fax;
-          var telphone = row.telphone;
+          var telphone = row.telephone;
            $("input[name='customercode']").val(code);
 		  $("input[name='csName']").val(csName);
-		  $("input[name='contacter']").val(contacter);
-		  $("input[name='fax']").val(fax);
-          $("input[name='telphone']").val(telphone);		  
+		  $("input[name='contacter']").val(contacter).attr("readonly",true);
+		  $("input[name='fax']").val(fax).attr("readonly",true);
+          $("input[name='telphone']").val(telphone).attr("readonly",true);		  
        },
        url:'/jereh/BaseCustomerSupplier/GetBaseCustomerSupplierServlet',
        toolbar:'#cusListTb',
@@ -234,7 +248,7 @@ function showName(){
        columns:[[{field:'code',title:'客户代码',fixed:true},
        			 {field:'csName',title:'客户名称',fixed:true},
        			 {field:'contacter',title:'联系人员',fixed:true},
-       			 {field:'telphone',title:'电话',fixed:true},
+       			 {field:'telephone',title:'电话',fixed:true},
        			 {field:'fax',title:'传真',fixed:true},
        			 {field:'adress',title:'地址',fixed:true},
    ]]}); 
@@ -305,7 +319,7 @@ function addParts(){
       <input type="button" value="生成订单" />
       <input type="button" value="关闭" onclick="closeDialog()"/>
     </form>
-     <div id="List">  
+    <div id=SList><div id="List"></div>   
      </div>
      </div>
       

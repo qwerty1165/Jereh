@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sale.entity.SaleQuotation;
 import com.sale.entity.SaleQuotation_Detail;
+import com.base.entity.BaseParts;
 import com.common.entity.PageBean;
 
 public interface SaleQuotationDao {

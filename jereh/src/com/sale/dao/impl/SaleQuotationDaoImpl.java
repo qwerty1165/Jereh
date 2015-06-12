@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.sale.dao.SaleQuotationDao;
 import com.base.entity.BaseCustomerSupplier;
+import com.base.entity.BaseParts;
 import com.sale.entity.SaleQuotation;
 import com.sale.entity.SaleQuotation_Detail;
 import com.common.dao.BaseDao;
@@ -67,19 +68,26 @@ public class SaleQuotationDaoImpl extends BaseDao implements SaleQuotationDao{
 	@Override
 	public List<SaleQuotation_Detail> showDetail(String scode) {
 		// TODO Auto-generated method stub
-		String sql = "select salequotation_detail.* from salequotation_detail left join " +
-				"salequotation on salequotation_detail.scode=salequotation.code where salequotation.code=?";
+		String sql = "select partsno,partsname,partsbrand,partsmodel,salequotation_detail.*from baseparts right join salequotation_detail " +
+				"on baseparts.partscode = salequotation_detail.pcode where " +
+				"salequotation_detail.scode =?";
 		ResultSet rs = super.executeQuery(sql,new Object[]{scode});
 		List<SaleQuotation_Detail> list = new ArrayList<SaleQuotation_Detail>();
 		SaleQuotation_Detail sq = null;
 		try {
 			while(rs.next()){
 				sq = new SaleQuotation_Detail();
+				BaseParts baseParts = new BaseParts();
+				baseParts.setPartsNo(rs.getString("partsno"));
+				baseParts.setPartsName(rs.getString("partsname"));
+				baseParts.setPartsBrand(rs.getString("partsbrand"));
+				sq.setBaseParts(baseParts);
 				sq.setCode(rs.getString("code"));
 				sq.setScode(rs.getString("scode"));
 				sq.setPcode(rs.getString("pcode"));
 				sq.setNums(rs.getInt("nums"));
 				sq.setPrice(rs.getDouble("price"));
+				sq.setDeliveryMode(rs.getString("deliveryMode"));
 				sq.setRemarks(rs.getString("remarks"));
 				list.add(sq);
 			}
@@ -108,11 +116,13 @@ public class SaleQuotationDaoImpl extends BaseDao implements SaleQuotationDao{
 		// TODO Auto-generated method stub
 		String sql = "insert into salequotation(code,sqdate,customercode,contacter,telphone," +
 				"fax,remarks)values(?,?,?,?,?,?,?)";
-		int ret = super.executeUpdate(sql, new Object[]{saleQuotation.getCode(),saleQuotation.getSqDate(),
+		int ret = super.executeUpdate(sql, new Object[]{saleQuotation.getCode(),new java.sql.Date(saleQuotation.getSqDate().getTime()),
 				saleQuotation.getCustomercode(),saleQuotation.getContacter(),saleQuotation.getTelphone(),
 				saleQuotation.getFax(),saleQuotation.getRemarks()});
 		return ret;
 	}
+
+
 	
 
 }

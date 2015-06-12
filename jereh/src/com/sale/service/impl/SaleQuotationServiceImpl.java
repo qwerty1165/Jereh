@@ -36,5 +36,5 @@ public class SaleQuotationServiceImpl implements SaleQuotationService {
 		// TODO Auto-generated method stub
 		return saleQuotationDao.addSaleQuotation(saleQuotation);
 	}
-
+	
 }
