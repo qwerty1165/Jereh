@@ -1,5 +1,8 @@
 package com.sale.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.common.entity.PageBean;
 import com.sale.dao.SaleReturnDao;
 import com.sale.dao.impl.SaleReturnDaoImpl;
@@ -36,7 +39,10 @@ public class SaleReturnServiceImpl implements SaleReturnService {
 	@Override
 	public int addSaleReturn(SaleReturn saleReturn) {
 		// TODO Auto-generated method stub
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMMddhhmmss");	
+		String st=simpleDateFormat.format(new Date());
+		String code="MTXT"+st+"";
+		saleReturn.setCode(code);
 		return saleReturnDao.insert(saleReturn);
 	}
-
 }

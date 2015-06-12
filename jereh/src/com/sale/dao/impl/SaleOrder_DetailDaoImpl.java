@@ -23,7 +23,7 @@ public class SaleOrder_DetailDaoImpl extends BaseDao implements SaleOrder_Detail
 				sd.setPartsName(rs.getString("partsName"));
 				sd.setPartsBrand(rs.getString("partsBrand"));
 				sd.setPartsModel(rs.getString("partsModel"));
-				sd.setsCode(rs.getString("scode"));
+				
 				
 				
 			}

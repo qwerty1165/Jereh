@@ -13,4 +13,5 @@ public interface SaleQuotationService {
 	public List<SaleQuotation_Detail> showDetail(String scode);
 	public int updateSaleQuotation(SaleQuotation saleQuotation);
 	public int addSaleQuotation(SaleQuotation saleQuotation);
+
 }
