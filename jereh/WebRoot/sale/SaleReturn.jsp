@@ -154,91 +154,70 @@ hr {
 	function showInfo(code) {
 		$("#ghost").html("单据标号为：" + code + " 的明细如下所列！");
 		$("#infoTb").show();
-		$("#info")
-				.datagrid(
-						{
-							idField : 'code',
-							//toolbar : '#infoTb',
-							//height: 400,
-							//fit : true,
-							striped : true,
-							singleSelect : false,
-							selectOnCheck : true,
-							checkOnSelect : false,
-							url : '/jereh/sale/GetSaleReturnDetailServlet',
-							columns : [ [
-									{
-										field : 'outCode',
-										title : '出库单号',
-										width : 150,
-										align : 'center'
-									},
-									{
-										field : 'partsNo',
-										title : '件号',
-										width : 100,
-										align : 'center'
-									},
-									{
-										field : 'partsName',
-										title : '配件名称',
-										width : 100,
-										align : 'center'
-									},
-									{
-										field : 'partsBrand',
-										title : '配件品牌',
-										width : 100,
-										align : 'center'
-									},
-									{
-										field : 'partsModle',
-										title : '配件型号',
-										width : 100,
-										align : 'center'
-									},
-									{
-										field : 'number',
-										title : '数量',
-										width : 50,
-										align : 'center'
-									},
-									{
-										field : 'salePrice',
-										title : '单价',
-										width : 150,
-										align : 'center'
-									},
-									{
-										field : 'sumPrice',
-										title : '金额',
-										width : 150,
-										align : 'center',
-										formatter : function(val, row, idx) {
-											var sumPrice = row.salePrice
-													* row.number;
-											return sumPrice;
-										}
-									},
-									{
-										field : 'addUserName',
-										title : '备注',
-										width : 150,
-										align : 'center'
-									},
-									{
-										field : 'operate',
-										title : '操作',
-										width : 100,
-										resizable : false,
-										formatter : function(val, row, idx) { //"<input type='button' value='删除' onclick=\"delRow('"+row.code+"')\" />"
-											var content = "<input type='button' value='删除' onclick=\"delRow('"
-													+ row.code + "')\" />";
-											return content;
-										},
-										align : 'center'
-									} ] ],
-						});
+		$("#info").datagrid({
+			idField : 'code',
+			//toolbar : '#infoTb',
+			//height: 400,
+			//fit : true,
+			striped : true,
+			singleSelect : false,
+			selectOnCheck : true,
+			checkOnSelect : false,
+			url : '/jereh/sale/GetSaleReturnDetailServlet',
+			queryParams : {
+				'code' : code
+			},
+			columns : [ [ {
+				field : 'outCode',
+				title : '出库单号',
+				width : 180,
+				align : 'center'
+			}, {
+				field : 'partsNo',
+				title : '件号',
+				width : 100,
+				align : 'center'
+			}, {
+				field : 'partsName',
+				title : '配件名称',
+				width : 100,
+				align : 'center'
+			}, {
+				field : 'partsBrand',
+				title : '配件品牌',
+				width : 100,
+				align : 'center'
+			}, {
+				field : 'partsModle',
+				title : '配件型号',
+				width : 100,
+				align : 'center'
+			}, {
+				field : 'number',
+				title : '数量',
+				width : 100,
+				align : 'center'
+			}, {
+				field : 'salePrice',
+				title : '单价',
+				width : 100,
+				align : 'center'
+			}, {
+				field : 'sumPrice',
+				title : '金额',
+				width : 100,
+				align : 'center',
+				formatter : function(val, row, idx) {
+					var sumPrice = row.salePrice * row.number;
+					return sumPrice;
+				}
+			}, {
+				field : 'remarks',
+				title : '备注',
+				width : 200,
+				align : 'center'
+			} ] ],
+		});
 	};
 
 	function delRow(code) {
@@ -271,6 +250,12 @@ hr {
 			modal : true,
 			closed : true
 		});
+		//$("#addParts").datagrid("appendRow", {
+		//	name : '新名称',
+		//	age : 30,
+		//	note : '新消息'
+		//});
+
 		$("#addParts").dialog("open");
 	}
 	//添加客户
@@ -361,15 +346,15 @@ hr {
 	}
 
 	function outExcel() {
-		var code = $("input[name='serCode']").val();
-		var pCode = $("select[name='serPCode']").val();
+		//var code = $("input[name='serCode']").val();
+		//var pCode = $("select[name='serPCode']").val();
 		$.ajax({
 			type : 'post',
-			url : '../servlet/OutputExcelBasePartsCategoryServlet',
-			data : {
-				'code' : code,
-				'pCode' : pCode
-			}
+			url : '../sale/OutputExcelSaleReturnServlet',
+			//data : {
+			//	'code' : code,
+			//	'pCode' : pCode
+			//}
 		});
 	}
 

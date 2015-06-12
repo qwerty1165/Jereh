@@ -15,6 +15,15 @@ public class SaleReturnDetail {
 	private String partsModle;// 配件型号
 	private int number;// 数量
 	private long salePrice;// 单价
+	private String remarks;//备注
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 
 	public String getOutCode() {
 		return outCode;
@@ -73,7 +82,8 @@ public class SaleReturnDetail {
 	}
 
 	public SaleReturnDetail(String outCode, String partsNo, String partsName,
-			String partsBrand, String partsModle, int number, long salePrice) {
+			String partsBrand, String partsModle, int number, long salePrice,
+			String remarks) {
 		super();
 		this.outCode = outCode;
 		this.partsNo = partsNo;
@@ -82,10 +92,13 @@ public class SaleReturnDetail {
 		this.partsModle = partsModle;
 		this.number = number;
 		this.salePrice = salePrice;
+		this.remarks = remarks;
 	}
 
 	public SaleReturnDetail() {
 		super();
 	}
+
+	
 
 }
