@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import com.common.dao.BaseDao;
 import com.common.entity.PageBean;
 import com.stock.dao.StockInDao;
@@ -84,7 +83,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				"intype,isroad,isinvoice," +//3
 				"remarks,isshow,nums," +//4
 				"numsprice,state,compcode," +//5
-				"adddate,adduser,adduername," +//6
+				"adddate,adduser,addusername," +//6
 				"addip) values (?,?,?," +//1
 				"?,?,?," +//2
 				"?,?,?," +//3
@@ -92,7 +91,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				"?,?,?," +//5
 				"sysdate,?,?," +//6
 				"?)";
-		return super.executeUpdate(sql, new Object[]{in.getCode(),in.getInDate(),in.getSupplierCode(),
+		return super.executeUpdate(sql, new Object[]{in.getCode(),new java.sql.Date(in.getInDate().getTime()),in.getSupplierCode(),
 				in.getContacter(),in.getTelphone(),in.getFax(),
 				in.getInType(),in.getIsRoad(),in.getIsInvoice(),
 				in.getRemarks(),in.getIsShow(),in.getNums(),
@@ -103,8 +102,17 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 
 	@Override
 	public int update(StockIn in) {
-	//	String sql="";
-		return 0;
+		String sql="update stockin set indate=?,suppliercode=?," +
+				"contacter=?,telphone=?,fax=?," +
+				"intype=?,isroad=?,isinvoice=?," +
+				"remarks=?,isshow=?," +
+				"adddate=sysdate " +
+				"where code=?";
+		return super.executeUpdate(sql, new Object[]{new java.sql.Date(in.getInDate().getTime()),in.getSupplierCode(),
+				in.getContacter(),in.getTelphone(),in.getFax(),
+				in.getInType(),in.getIsRoad(),in.getIsInvoice(),
+				in.getRemarks(),in.getIsShow(),
+				in.getCode()});
 	}
 
 	

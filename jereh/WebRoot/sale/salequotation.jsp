@@ -215,19 +215,6 @@ function showName(){
    $("#customer").dialog({title:"请选择客户"});
    $("#customer").dialog("open");
    $("#cusList").datagrid({  
-       onDblClickRow:function(idx, row){
-          var row=$("#cusList").datagrid("getRows")[idx];
-          var code=row.code;
-          var csName=row.csName;
-          var contacter=row.contacter;
-          var fax = row.fax;
-          var telphone = row.telphone;
-           $("input[name='customercode']").val(code);
-		  $("input[name='csName']").val(csName);
-		  $("input[name='contacter']").val(contacter);
-		  $("input[name='fax']").val(fax);
-          $("input[name='telphone']").val(telphone);		  
-       },
        url:'/jereh/BaseCustomerSupplier/GetBaseCustomerSupplierServlet',
        toolbar:'#cusListTb',
 	   idField:'code',
@@ -237,7 +224,22 @@ function showName(){
        			 {field:'telphone',title:'电话',fixed:true},
        			 {field:'fax',title:'传真',fixed:true},
        			 {field:'adress',title:'地址',fixed:true},
-   ]]}); 
+   	  	]],   		
+        onDblClickRow:function(idx, row){
+          var row=$("#cusList").datagrid("getRows")[idx];
+          var code=row.code;
+          var csName=row.csName;
+          var contacter=row.contacter;
+          var fax = row.fax;
+          var telphone = row.telphone;
+          $("input[name='customercode']").val(code);
+		  $("input[name='csName']").val(csName);
+		  $("input[name='contacter']").val(contacter);
+		  $("input[name='fax']").val(fax);
+          $("input[name='telphone']").val(telphone);		  
+       },
+
+   }); 
 }
 function addParts(){
    $("#parts").dialog({title:"选择配件"});
