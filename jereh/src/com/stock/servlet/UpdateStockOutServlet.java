@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.common.util.DateUtil;
 import com.stock.entity.StockIn;
-import com.stock.service.StockInService;
-import com.stock.service.impl.StockInServiceImpl;
+import com.stock.entity.StockOut;
+import com.stock.service.StockOutService;
+import com.stock.service.impl.StockOutServiceImpl;
 
-public class UpdateStockInServlet extends HttpServlet {
-	private StockInService service=new StockInServiceImpl();
+public class UpdateStockOutServlet extends HttpServlet {
+	private StockOutService service=new StockOutServiceImpl();
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doPost(request, response);
@@ -27,40 +28,39 @@ public class UpdateStockInServlet extends HttpServlet {
 		response.setContentType("text/json; charset=utf-8");
 		
 		String opt=request.getParameter("opt");
-		String supplierCode=request.getParameter("supplierCode");
+		String customerCode=request.getParameter("customerCode");
 		String code=request.getParameter("code");
-		String inDate=request.getParameter("inDate");		
+		String outDate=request.getParameter("outDate");		
 		String contacter=request.getParameter("contacter");
 		String telphone=request.getParameter("telphone");
-		String fax=request.getParameter("fax");
-		String isShow=request.getParameter("isShow");
-		String isRoad=request.getParameter("isRoad");
+		String fax=request.getParameter("fax");	
+		String outType=request.getParameter("outType");				
 		String isInvoice=request.getParameter("isInvoice");
 		String remarks=request.getParameter("remarks");
-		StockIn stockIn=new StockIn();
-		stockIn.setCode(code);
-		stockIn.setContacter(contacter);
-		stockIn.setTelphone(telphone);
-		stockIn.setFax(fax);		
-		stockIn.setIsShow(isShow);
-		stockIn.setIsRoad(isRoad);
-		stockIn.setIsInvoice(isInvoice);
-		stockIn.setRemarks(remarks);	
-		stockIn.setSupplierCode(supplierCode);
-		stockIn.setAddUserName("Mar");
-		stockIn.setAddIp(request.getRemoteAddr());
+		StockOut stockOut=new StockOut();
+		stockOut.setCode(code);
+		stockOut.setContacter(contacter);
+		stockOut.setTelphone(telphone);
+		stockOut.setFax(fax);		
+		stockOut.setOutType(outType);
+		stockOut.setIsInvoice(isInvoice);
+		stockOut.setRemarks(remarks);	
+		stockOut.setCustomerCode(customerCode);
+		stockOut.setAddUserName("Mar");
+		stockOut.setAddIp(request.getRemoteAddr());//获取客户端的ip
 		try {
-			stockIn.setInDate(DateUtil.toDate(inDate));
+			stockOut.setOutDate(DateUtil.toDate(outDate));
 		} catch (ParseException e) {			
 			e.printStackTrace();
 		}
-		
+		int ret=-1;
 		if(opt.equals("1")){//添加
-			service.insertStockIn(stockIn);
+			ret=service.insertStockOut(stockOut);
 		}else if(opt.equals("2")){//修改
-			service.updateStockIn(stockIn);
+			ret=service.updateStockOut(stockOut);
 		}
-		response.sendRedirect("/jereh/stock/stock_in.jsp");
+		System.out.println("操作返回值："+ret);
+		response.sendRedirect("/jereh/stock/stock_out.jsp");
 	}
 
 }

@@ -51,7 +51,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				si.setRemarks(rs.getString("remarks"));
 				si.setIsShow(rs.getString("isShow"));
 				si.setNums(rs.getInt("nums"));
-				si.setNumsPrice(rs.getDouble("numsPrice"));
+				si.setNumsPrice(rs.getDouble("numsPrice"));				
 				si.setState(rs.getString("state"));
 				si.setCompCode(rs.getString("compCode"));
 				si.setAddDate(new Date(rs.getDate("adddate").getTime()));

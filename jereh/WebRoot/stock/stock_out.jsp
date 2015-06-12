@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>入库单据管理</title>
+<title>出库单据管理</title>
 <script src="/jereh/js/jquery-1.7.2.min.js"></script>
 <script src="/jereh/js/jquery.easyui.min.js"></script>
 <link type="text/css" href="/jereh/themes/icon.css" rel="stylesheet" />
@@ -41,9 +41,9 @@ $(function(){
   	$("#dg").dialog({
   		resizable:true,
   		fit:true,		
-		//width:1000,height:500,
 		modal:true,
-		closed:true			
+		closed:true,
+		collapsible:true			
 	});  
 	$("#dg").dialog("close");
 	
@@ -64,7 +64,7 @@ $(function(){
 	$("#detailInfo").hide();
 	
 	$("#list").datagrid({
-		url:'/jereh/StockIn/GetStockInServlet',	
+		url:'/jereh/StockOut/GetStockOutServlet',	
 		idField:'code',		
 		singleSelect:false,
 		success:function(data){//data是GetChannelServlet中取得的json数据	
@@ -79,17 +79,17 @@ $(function(){
 						,formatter:function(val,row,idx){							
 							return "<a onclick=\"detail('"+row.code+"')\" href='#' >"+val+"</a>";
 						}
-					},
-					{field:'isShow',title:'是否显示',hidden:true},//hidden:true
-					{field:'isInvoice',title:'是否开票',hidden:true},
-					{field:'inType',title:'入库类型',hidden:true},
-					{field:'supplierCode',title:'供应编号',fixed:true},
+					},	 				
+					{field:'isInvoice',title:'是否开票',hidden:true},					
+					{field:'customerCode',title:'客户编号',fixed:true},
 					{field:'contacter',title:'联系人',hidden:true},
 					{field:'telphone',title:'电话',hidden:true},
-					{field:'fax',title:'传真',hidden:true},
+					{field:'fax',title:'传真',hidden:true}, 
+					{field:'isShow',title:'是否显示',hidden:true},
+					{field:'address',title:'地址',hidden:true},
 					
-					{field:'inDate',title:'入库日期',fixed:true},					
-					{field:'supplierName',title:'供应商名',fixed:true},
+					{field:'outDate',title:'出库日期',fixed:true},					
+					{field:'customerName',title:'客户名称',fixed:true},
 					{field:'nums',title:'数量',fixed:80},
 					{field:'numsPrice',title:'总货值',fixed:true},
 					
@@ -98,7 +98,7 @@ $(function(){
 							return "0.00";
 						}
 					},
-					{field:'getState',title:'收票情况',fixed:true
+					{field:'getState',title:'开票情况',fixed:true
 						,formatter:function(val,row,idx){							
 							return "0.00";
 						}
@@ -122,18 +122,19 @@ $(function(){
 		pageSize:10
 	});	
 });
-function detail(incode){
-	$("#codeInfo").text(incode);
+
+function detail(outcode){
+	$("#codeInfo").text(outcode);
 	$("#detailInfo").show();
 	$("#detailList").datagrid({
-		url:'/jereh/StockIn/GetStockInDetailServlet',		
-		queryParams:{'inCode':incode},		
+		url:'/jereh/StockOut/GetStockOutDetailServlet',		
+		queryParams:{'outCode':outcode},		
 		success:function(data){//data是GetChannelServlet中取得的json数据	
 			if(data.total==0){
 				alert("没有数据！");	
 			}
 		},		
-		columns:[[	{field:'orderCode',title:'订单编号',fixed:true},
+		columns:[[	{field:'xsCode',title:'销售编号',fixed:true},
 					{field:'pCode',title:'件号',fixed:true},									
 					{field:'baseParts',title:'配件名称',fixed:true,
 						formatter:function(val,row,idx){
@@ -157,7 +158,8 @@ function detail(incode){
 							return row.nums*row.price;
 						}
 					},
-					{field:'wareHouse',title:'所属仓库',fixed:true},					
+					{field:'wareHouse',title:'所属仓库',fixed:true},	
+					{field:'wnums',title:'库存量',fixed:true},					
 					{field:'remarks',title:'备注',fixed:true},					
 				]],			
 	});		
@@ -172,7 +174,7 @@ function closeDailog(){
 }
 /**添加数据*/
 function addRow(){
-	showDailog("添加入库数据");	
+	showDailog("添加出库数据");	
 	$("#update").hide();
 	
 	$("input[name='add']").attr("disabled",false);
@@ -180,68 +182,68 @@ function addRow(){
 	$("input[name='opt']").val("1");//opt=1表示添加，opt=2表示修改	
 	//清空数据
 	$("input[name='code']").val(getCurDate()).attr("readonly",false);
-	$("#inDate").datebox("setValue",new Date());		
-	$("input[name='supplierName']").val("");	
+	$("#outDate").datebox("setValue",new Date());		
+	$("input[name='customerName']").val("");	
 	$("input[name='contacter']").val("");
 	$("input[name='telphone']").val("");
 	$("input[name='fax']").val("");
-	$("input[name='numsPrice']").val("");
-		$("input[name='isShow']:first").prop("checked",true);
-		$("input[name='isRoad']:first").prop("checked",true);
+	$("input[name='numsPrice']").val("");	
+		$("input[name='isShow']:first").prop("checked",true);	
 		$("input[name='isInvoice']:first").prop("checked",true);	
-	$("input[name='remarks']").val("");
+	$("input[name='remarks']").val("");	
 }
 /**更新数据*/
 function updateRow(idx){
-	showDailog("修改入库");
+	showDailog("修改出库数据");
 	$("#update").show();
 	$("input[name='add']").attr("disabled",true);
 	$("input[name='save']").attr("disabled",false);	
 	$("input[name='opt']").val("2");
 	var row=$("#list").datagrid("getRows")[idx];	 
 	var code=row.code;
-	var inDate=row.inDate;
-	var supplierCode=row.supplierCode;
-	var supplierName=row.supplierName;
+	var outDate=row.outDate;
+	var customerCode=row.customerCode;
+	var customerName=row.customerName;
 	var contacter=row.contacter;
 	var telphone=row.telphone;
 	var fax=row.fax;
-	var numsPrice=row.numsPrice;
-	var isRoad=row.isRoad;
-	var isShow=row.isShow;
+	var address=row.address;
+	var numsPrice=row.numsPrice;	
 	var isInvoice=row.isInvioce;
+	var isShow=row.isShow;
 	var remarks=row.remarks;
 	
-	$("input[name='supplierCode']").val(supplierCode);
+	$("input[name='customerCode']").val(customerCode);
+	$("input[name='address']").val(address);
 	$("input[name='code']").val(code).attr("readonly",true);
-	$("#inDate").datebox("setValue",inDate);		
-	$("input[name='supplierName']").val(supplierName);	
+	$("#outDate").datebox("setValue",outDate);		
+	$("input[name='customerName']").val(customerName);	
 	$("input[name='contacter']").val(contacter);
 	$("input[name='telphone']").val(telphone);
 	$("input[name='fax']").val(fax);
-	$("input[name='numsPrice']").val(numsPrice);
-	if(isRoad==0){
-		$("input[name='isRoad']:first").prop("checked",true);
-	}else{
-		$("input[name='isRoad']:last").prop("checked",true);
-	};
-	if(isShow==1){
-		$("input[name='isShow']:first").prop("checked",true);
-	}else{
-		$("input[name='isShow']:last").prop("checked",true);
-	};
+	$("input[name='numsPrice']").val(numsPrice);	
 	if(isInvoice==1){
 		$("input[name='isInvoice']:first").prop("checked",true);
 	}else{
 		$("input[name='isInvoice']:last").prop("checked",true);
 	};	
+	if(isShow==1){
+		$("input[name='isShow']:first").prop("checked",true);
+	}else{
+		$("input[name='isShow']:last").prop("checked",true);
+	};
 	$("input[name='remarks']").val(remarks);	
 	
 	/**显示详细信息*/
 	$("#updateDetailList").datagrid({
-		url:'/jereh/StockIn/GetStockInDetailServlet',		
-		queryParams:{'inCode':code},			
-		columns:[[	{field:'orderCode',title:'订单编号',fixed:true},
+		url:'/jereh/StockOut/GetStockOutDetailServlet',		
+		queryParams:{'outCode':outcode},		
+		success:function(data){//data是GetChannelServlet中取得的json数据	
+			if(data.total==0){
+				alert("没有数据！");	
+			}
+		},		
+		columns:[[	{field:'xsCode',title:'销售编号',fixed:true},
 					{field:'pCode',title:'件号',fixed:true},									
 					{field:'baseParts',title:'配件名称',fixed:true,
 						formatter:function(val,row,idx){
@@ -265,8 +267,9 @@ function updateRow(idx){
 							return row.nums*row.price;
 						}
 					},
-					{field:'wareHouse',title:'所属仓库',fixed:true},					
-					{field:'remarks',title:'备注',fixed:true},
+					{field:'wareHouse',title:'所属仓库',fixed:true},	
+					{field:'wnums',title:'库存量',fixed:true},					
+					{field:'remarks',title:'备注',fixed:true},	
 					{field:'opt',title:'操作',fixed:true
 					,formatter:function(val,row,idx){
 							var opt="<input type='button' value='删除' onclick=\"delDetail('"+row.code+"')\"/>";
@@ -281,10 +284,10 @@ function updateRow(idx){
 
 /**删除数据*/
 function delRow(code){
-	alert(code);
+	//alert(code);
 	$.messager.confirm('警告','确定删除该记录吗？',function(r){
 		if(r){
-			$.ajax({url:'/jereh/StockIn/DeleteStockInServlet',
+			$.ajax({url:'/jereh/StockOut/DeleteStockOutServlet',
 				data:{'code':code},
 				type:'post',
 				success:function(data){
@@ -320,8 +323,8 @@ function showSupplier(){
 			var contacter=row.contacter;
 			var fax = row.fax;
 			var telphone = row.telephone;
-			$("input[name='supplierCode']").val(code);
-			$("input[name='supplierName']").val(csName);
+			$("input[name='customerCode']").val(code);
+			$("input[name='customerName']").val(csName);
 			$("input[name='contacter']").val(contacter);
 			$("input[name='fax']").val(fax);
 			$("input[name='telphone']").val(telphone);	
@@ -353,8 +356,8 @@ function searchFun(){
 	var code=$("input[name='code']").val();
 	var startDate=$("input[name='startDate']").val();
 	var endDate=$("input[name='endDate']").val();	
-	var supplierName=$("select[name='supplierName']").val();
-	$("#list").datagrid("reload",{code:code,startDate:startDate,endDate:endDate,supplierName:supplierName});	
+	var customerName=$("select[name='customerName']").val();
+	$("#list").datagrid("reload",{code:code,startDate:startDate,endDate:endDate,customerName:customerName});	
 }
 
 </script>
@@ -375,7 +378,7 @@ function searchFun(){
         入库单号：<input type="text"  name="code"/>
         开始日期:<input type="text" class="easyui-datebox"  name="startDate"/>
         结束日期：<input type="text" class="easyui-datebox"   name="endDate"/>
-	供应商名：<input type="text"  name="supplierName"/>
+	供应商名：<input type="text"  name="customerName"/>
         <input type="button" onclick="searchFun()" value="搜索" />
         <input type="reset" value="重置"/>
     </form>
@@ -427,20 +430,21 @@ function searchFun(){
      </div>		 
 	<!-- 更新添加页面 -->   
      <div id="dg" style="padding:20px">
-		<form name="frm" action="/jereh/StockIn/UpdateStockInServlet" method="post" >
-			<input type="hidden" name="supplierCode" /> 
+		<form name="frm" action="/jereh/StockOut/UpdateStockOutServlet" method="post" >
+			<input type="hidden" name="customerCode" /> 
+			<input type="hidden" name="address" /> 
 			<input type="hidden" name="opt" />
 			<table   border="1"  border="1" bordercolor="#CFDAE8" cellpadding="0"
 				cellspacing="0">
 			<tr>
-			    <td class="td1"><span style="color:red">*</span>入库单号：</td>
+			    <td class="td1"><span style="color:red">*</span>出库单号：</td>
 			    <td class="td2"><input name="code" type="text"/></td>
-			    <td class="td1"><span style="color:red">*</span>入库日期：</td>
-			    <td class="td2"><input id="inDate" name="inDate" type="text" class="easyui-datebox"/></td>
+			    <td class="td1"><span style="color:red">*</span>出库日期：</td>
+			    <td class="td2"><input id="outDate" name="outDate" type="text" class="easyui-datebox"/></td>
 			</tr>
 			<tr>
-			 <td class="td1"><span style="color:red">*</span>供应商名：</td>
-			 <td class="td2"><input name="supplierName" readonly="readonly" type="text" onclick="showSupplier()"/></td>
+			 <td class="td1"><span style="color:red">*</span>客户名称：</td>
+			 <td class="td2"><input name="customerName" readonly="readonly" type="text" onclick="showSupplier()"/></td>
 			 <td class="td1"><span style="color:red">*</span>联系人员：</td>
 			 <td class="td2"><input name="contacter" type="text" readonly="readonly" /></td>			 
 			</tr>
@@ -451,22 +455,21 @@ function searchFun(){
 			    <td class="td2"><input name="fax" type="text" readonly="readonly"/></td>
 			</tr>
 			<tr>
-				<td class="td1">入库类型：</td>
-				<td class="td2"><!-- <select name="inType"></select> -->
-				<input name="isRoad" type="radio" value="0"/>正常入库<input name="isRoad" type="radio" value="1"/>冲抵入库</td>
+				<td class="td1">出库类型：</td>
+				<td class="td2"> <select name="outType" disabled><option value='销售出库'>销售出库</option></select>
 			    <td class="td1"><span style="color:red">*</span>是否开票：</td>
 			    <td class="td2"><input name="isInvoice" type="radio" value="1"/>是<input name="isInvoice" type="radio" value="0"/>否</td>
 			</tr>
-			<tr>
+			<tr>		
 				<td class="td1">是否显示：</td>
 				<td class="td2"><input name="isShow" type="radio" value="1"/>是 <input name="isShow" type="radio" value="0"/>否</td>
-				
+						
 				<td class="td1">备注：</td>
 				<td class="td2"><input name="remarks" type="text"/></td>			    
 			</tr>
 			</table><br/>
 			<input name="add" type="submit" value="新增" onclick="" />
-			<input name="order" type="button" value="采购订单" onclick="" />
+			<input name="order" type="button" value="销售订单" onclick="" />
 			<input name="part" type="button" value="添加配件" onclick="addParts()" />
 			<input name="save" type="submit" value="保存" onclick="" />
 			<input name="" type="button" value="审核" onclick="" />

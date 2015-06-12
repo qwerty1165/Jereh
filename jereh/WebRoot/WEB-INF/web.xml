@@ -180,6 +180,26 @@
     <servlet-name>GetBasePartsServlet</servlet-name>
     <servlet-class>com.stock.servlet.GetBasePartsServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GetStockOutServlet</servlet-name>
+    <servlet-class>com.stock.servlet.GetStockOutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetStockOutDetailServlet</servlet-name>
+    <servlet-class>com.stock.servlet.GetStockOutDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteStockOutServlet</servlet-name>
+    <servlet-class>com.stock.servlet.DeleteStockOutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateStockOutServlet</servlet-name>
+    <servlet-class>com.stock.servlet.UpdateStockOutServlet</servlet-class>
+  </servlet>
+
+
+
+
 
 
 
@@ -375,6 +395,22 @@
   <servlet-mapping>
     <servlet-name>GetBasePartsServlet</servlet-name>
     <url-pattern>/StockIn/GetBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetStockOutServlet</servlet-name>
+    <url-pattern>/StockOut/GetStockOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetStockOutDetailServlet</servlet-name>
+    <url-pattern>/StockOut/GetStockOutDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteStockOutServlet</servlet-name>
+    <url-pattern>/StockOut/DeleteStockOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateStockOutServlet</servlet-name>
+    <url-pattern>/StockOut/UpdateStockOutServlet</url-pattern>
   </servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

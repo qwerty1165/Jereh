@@ -7,6 +7,14 @@ public class StockOut {
 	private String code;//出库单编号
 	private Date  outDate;//出库日期
 	private String customerCode;//客户编号
+	private String customerName;//客户名称
+	
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
 	private String contacter;//客户联系人
 	private String telphone;//联系电话
 	private String fax;//传真

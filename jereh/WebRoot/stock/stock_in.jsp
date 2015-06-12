@@ -75,7 +75,7 @@ $(function(){
 		toolbar:'#tools',
 		columns:[[
 					{field:'id',checkbox:true},
-					{field:'code',title:'出库单号',fixed:true
+					{field:'code',title:'入库单号',fixed:true
 						,formatter:function(val,row,idx){							
 							return "<a onclick=\"detail('"+row.code+"')\" href='#' >"+val+"</a>";
 						}
