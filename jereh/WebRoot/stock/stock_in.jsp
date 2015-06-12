@@ -307,7 +307,7 @@ function exportWord(){
 			<tr>
 			    <td class="td1"><span style="color:red">*</span>入库单号：</td><td class="td2"><input name="code" type="text"/></td>
 			    <td class="td1"><span style="color:red">*</span>入库日期：</td><td class="td2"><input name="addDate" type="text" class="easyui-datebox"/></td>
-			</tr>
+			</tr>	
 			<tr>
 			 <td class="td1"><span style="color:red">*</span>供应商名：</td><td class="td2"><input name="supplierName" type="text" /></td>
 			 <td class="td1"><span style="color:red">*</span>联系人员：</td><td class="td2"><input name="contacter" type="text" /></td>			 
