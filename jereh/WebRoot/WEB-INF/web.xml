@@ -1,4 +1,332 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--  
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name></display-name>
+  <servlet>
+    <servlet-name>GetBaseContentJsonServlet</servlet-name>
+    <servlet-class>com.base.servlet.GetBaseContentJsonServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetBaseContentServlet</servlet-name>
+    <servlet-class>com.base.servlet.GetBaseContentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetCategoryJsonServlet</servlet-name>
+    <servlet-class>com.base.servlet.GetCategoryJsonServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteBaseContentServlet</servlet-name>
+    <servlet-class>com.base.servlet.DeleteBaseContentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateBaseContentServlet</servlet-name>
+    <servlet-class>com.base.servlet.UpdateBaseContentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OutputExcelBaseContentServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutputExcelBaseContentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OutputWordBaseContentServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutputWordBaseContentServlet</servlet-class>
+  </servlet>
+  <servlet>  
+    <servlet-name>SearchBasePartsServlet</servlet-name>
+    <servlet-class>com.base.servlet.SearchBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>    
+    <servlet-name>addBasePartsServlet</servlet-name>
+    <servlet-class>com.base.servlet.addBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>    
+    <servlet-name>DeleteBasePartsServlet</servlet-name>
+    <servlet-class>com.base.servlet.DeleteBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>    
+    <servlet-name>OutExcleServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutExcleServlet</servlet-class>
+  </servlet>
+  <servlet>   
+    <servlet-name>OutWordServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutWordServlet</servlet-class>
+  </servlet>
+  <servlet>    
+    <servlet-name>DownloadFileServlet</servlet-name>
+    <servlet-class>com.base.servlet.DownloadFileServlet</servlet-class>
+  </servlet>
+  <servlet>   
+    <servlet-name>OutExcleBasePartsServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutExcleBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>  
+    <servlet-name>OutWordBasePartsServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutWordBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>  
+    <servlet-name>DownloadBasePartsServlet</servlet-name>
+    <servlet-class>com.base.servlet.DownloadBasePartsServlet</servlet-class>
+  </servlet>
+<servlet>
+    <servlet-name>GetBaseCustomerSupplierServlet</servlet-name>
+    <servlet-class>com.base.servlet.GetBaseCustomerSupplierServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateBaseCustomerSupplierServlet</servlet-name>
+    <servlet-class>com.base.servlet.UpdateBaseCustomerSupplierServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteBaseCustomerSupplierServlet</servlet-name>
+    <servlet-class>com.base.servlet.DeleteBaseCustomerSupplierServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OutputExcelBaseCustomerSupplierServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutputExcelBaseCustomerSupplierServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OutputWordBaseCustomerSupplierServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutputWordBaseCustomerSupplierServlet</servlet-class>
+  </servlet>
+ <servlet>    
+    <servlet-name>GetBasePartsCategoryJsonServlet</servlet-name>
+    <servlet-class>com.base.servlet.GetBasePartsCategoryJsonServlet</servlet-class>
+  </servlet>
+  <servlet>   
+    <servlet-name>DeleteBasePartsCategoryServlet</servlet-name>
+    <servlet-class>com.base.servlet.DeleteBasePartsCategoryServlet</servlet-class>
+  </servlet>
+  <servlet>    
+    <servlet-name>UpdataBasePartsCategoryServlet</servlet-name>
+    <servlet-class>com.base.servlet.UpdataBasePartsCategoryServlet</servlet-class>
+  </servlet>
+  <servlet>   
+    <servlet-name>AddBasePartsCategoryServlet</servlet-name>
+    <servlet-class>com.base.servlet.AddBasePartsCategoryServlet</servlet-class>
+  </servlet>
+  <servlet>   
+    <servlet-name>OutputExcelBasePartsCategoryServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutputExcelBasePartsCategoryServlet</servlet-class>
+  </servlet>
+  <servlet>   
+    <servlet-name>OutputWordBasePartsCategoryServlet</servlet-name>
+    <servlet-class>com.base.servlet.OutputWordBasePartsCategoryServlet</servlet-class>
+  </servlet>
+ <servlet>
+    <servlet-name>BaseCompanySearchServlet</servlet-name>
+    <servlet-class>com.base.servlet.BaseCompanySearchServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ModifyBaseCompanyServlet</servlet-name>
+    <servlet-class>com.base.servlet.ModifyBaseCompanyServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetStockInServlet</servlet-name>
+    <servlet-class>com.stock.servlet.GetStockInServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetStockInDetailServlet</servlet-name>
+    <servlet-class>com.stock.servlet.GetStockInDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteStockInServlet</servlet-name>
+    <servlet-class>com.stock.servlet.DeleteStockInServlet</servlet-class>
+  </servlet>
+  <servlet>
+  
+    <servlet-name>GetSaleReturnServlet</servlet-name>
+    <servlet-class>com.sale.servlet.GetSaleReturnServlet</servlet-class>
+  </servlet>
+  <servlet>
+   
+    <servlet-name>GetSaleReturnDetailServlet</servlet-name>
+    <servlet-class>com.sale.servlet.GetSaleReturnDetailServlet</servlet-class>
+  </servlet>
+<servlet>
+   
+    <servlet-name>GetSaleOrderServlet</servlet-name>
+    <servlet-class>com.sale.servlet.GetSaleOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdateSaleOrderServlet</servlet-name>
+    <servlet-class>com.sale.servlet.UpdateSaleOrderServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>BaseCompanySearchServlet</servlet-name>
+    <url-pattern>/base/BaseCompanySearchServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ModifyBaseCompanyServlet</servlet-name>
+    <url-pattern>/base/ModifyBaseCompanyServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
+  <servlet-mapping>
+    <servlet-name>GetBasePartsCategoryJsonServlet</servlet-name>
+    <url-pattern>/servlet/GetBasePartsCategoryJsonServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBasePartsCategoryServlet</servlet-name>
+    <url-pattern>/servlet/DeleteBasePartsCategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdataBasePartsCategoryServlet</servlet-name>
+    <url-pattern>/servlet/UpdataBasePartsCategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddBasePartsCategoryServlet</servlet-name>
+    <url-pattern>/servlet/AddBasePartsCategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutputExcelBasePartsCategoryServlet</servlet-name>
+    <url-pattern>/servlet/OutputExcelBasePartsCategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutputWordBasePartsCategoryServlet</servlet-name>
+    <url-pattern>/servlet/OutputWordBasePartsCategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetBaseCustomerSupplierServlet</servlet-name>
+    <url-pattern>/BaseCustomerSupplier/GetBaseCustomerSupplierServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateBaseCustomerSupplierServlet</servlet-name>
+    <url-pattern>/BaseCustomerSupplier/UpdateBaseCustomerSupplierServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBaseCustomerSupplierServlet</servlet-name>
+    <url-pattern>/BaseCustomerSupplier/DeleteBaseCustomerSupplierServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutputExcelBaseCustomerSupplierServlet</servlet-name>
+    <url-pattern>/BaseCustomerSupplier/OutputExcelBaseCustomerSupplierServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutputWordBaseCustomerSupplierServlet</servlet-name>
+    <url-pattern>/BaseCustomerSupplier/OutputWordBaseCustomerSupplierServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SearchBasePartsServlet</servlet-name>
+    <url-pattern>/baseParts/SearchBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>addBasePartsServlet</servlet-name>
+    <url-pattern>/baseParts/addBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBasePartsServlet</servlet-name>
+    <url-pattern>/baseParts/DeleteBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutExcleServlet</servlet-name>
+    <url-pattern>/baseParts/OutExcleServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutWordServlet</servlet-name>
+    <url-pattern>/baseParts/OutWordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DownloadFileServlet</servlet-name>
+    <url-pattern>/baseParts/DownloadFileServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutExcleBasePartsServlet</servlet-name>
+    <url-pattern>/baseParts/OutExcleBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutWordBasePartsServlet</servlet-name>
+    <url-pattern>/baseParts/OutWordBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DownloadBasePartsServlet</servlet-name>
+    <url-pattern>/baseParts/DownloadBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetBaseContentJsonServlet</servlet-name>
+    <url-pattern>/BaseContent/GetBaseContentJsonServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetBaseContentServlet</servlet-name>
+    <url-pattern>/BaseContent/GetBaseContentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetCategoryJsonServlet</servlet-name>
+    <url-pattern>/BaseContent/GetCategoryJsonServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBaseContentServlet</servlet-name>
+    <url-pattern>/BaseContent/DeleteBaseContentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateBaseContentServlet</servlet-name>
+    <url-pattern>/BaseContent/UpdateBaseContentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutputExcelBaseContentServlet</servlet-name>
+    <url-pattern>/excl/OutputExcelBaseContentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutputWordBaseContentServlet</servlet-name>
+    <url-pattern>/word/OutputWordBaseContentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetStockInServlet</servlet-name>
+    <url-pattern>/StockIn/GetStockInServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetStockInDetailServlet</servlet-name>
+    <url-pattern>/StockIn/GetStockInDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteStockInServlet</servlet-name>
+    <url-pattern>/StockIn/DeleteStockInServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSaleReturnServlet</servlet-name>
+    <url-pattern>/sale/GetSaleReturnServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSaleReturnDetailServlet</servlet-name>
+    <url-pattern>/sale/GetSaleReturnDetailServlet</url-pattern>
+  </servlet-mapping>	
+  <servlet-mapping>
+    <servlet-name>GetSaleOrderServlet</servlet-name>
+    <url-pattern>/saleOrder/GetSaleOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateSaleOrderServlet</servlet-name>
+    <url-pattern>/saleOrder/UpdateSaleOrderServlet</url-pattern>
+  </servlet-mapping>	
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+-->
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
@@ -415,4 +743,5 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
 </web-app>
