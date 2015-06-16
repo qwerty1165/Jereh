@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-	<display-name></display-name>
+  <display-name></display-name>
 	<servlet>
 		<servlet-name>GetBaseContentJsonServlet</servlet-name>
 		<servlet-class>com.base.servlet.GetBaseContentJsonServlet</servlet-class>
@@ -149,6 +151,10 @@
 		<servlet-name>UpdateSaleQuotationServlet</servlet-name>
 		<servlet-class>com.sale.servlet.UpdateSaleQuotationServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>DeleteSaleQuotationServlet</servlet-name>
+		<servlet-class>com.sale.servlet.DeleteSaleQuotationServlet</servlet-class>
+	</servlet>
 	<servlet>		
 		<servlet-name>GetSaleReturnServlet</servlet-name>
 		<servlet-class>com.sale.servlet.GetSaleReturnServlet</servlet-class>
@@ -176,6 +182,245 @@
     <servlet-name>UpdateStockInServlet</servlet-name>
     <servlet-class>com.stock.servlet.UpdateStockInServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GetBasePartsServlet</servlet-name>
+    <servlet-class>com.stock.servlet.GetBasePartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+
+    <servlet-name>GetSaleQuotationPartsServlet</servlet-name>
+    <servlet-class>com.sale.servlet.GetSaleQuotationPartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateSaleQuotationDetailServlet</servlet-name>
+    <servlet-class>com.sale.servlet.UpdateSaleQuotationDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OutputExcelSaleQuotationServlet</servlet-name>
+    <servlet-class>com.sale.servlet.OutputExcelSaleQuotationServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetStockOutServlet</servlet-name>
+    <servlet-class>com.stock.servlet.GetStockOutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetStockOutDetailServlet</servlet-name>
+    <servlet-class>com.stock.servlet.GetStockOutDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteStockOutServlet</servlet-name>
+    <servlet-class>com.stock.servlet.DeleteStockOutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateStockOutServlet</servlet-name>
+    <servlet-class>com.stock.servlet.UpdateStockOutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetBasePartsByComServlet</servlet-name>
+    <servlet-class>com.base.servlet.GetBasePartsByComServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteStockInDetailServlet</servlet-name>
+    <servlet-class>com.stock.servlet.DeleteStockInDetailServlet</servlet-class>
+  </servlet>
+ <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPurchaseInQueryServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.AddPurchaseInQueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPurchaseOrderServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.AddPurchaseOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurchaseInQueryServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.GetPurchaseInQueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurchaseOrderServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.GetPurchaseOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeletePurchaseInQueryServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.DeletePurchaseInQueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeletePurchaseOrderServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.DeletePurchaseOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>PurchaseInQueryServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.PurchaseInQueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>PurchaseOrderServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.PurchaseOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdatePurchaseInQueryServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.UpdatePurchaseInQueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdatePurchaseOrderServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.UpdatePurchaseOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeleteBatchPurchaseInQueryServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.DeleteBatchPurchaseInQueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeleteBatchPurchaseOrderServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.DeleteBatchPurchaseOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>FindPurchaseInQueryServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.FindPurchaseInQueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>FindPurchaseOrderServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.FindPurchaseOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>PurchaseInQueryExcelServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.PurchaseInQueryExcelServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>PurchaseOrderExcelServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.PurchaseOrderExcelServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurchaseInQueryDetailServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.GetPurchaseInQueryDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurchaseOrderDetailServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.GetPurchaseOrderDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeletePurchaseInQueryDetailServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.DeletePurchaseInQueryDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPurchaseInQueryDetailServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.AddPurchaseInQueryDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPurchaseOrderDetailServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.AddPurchaseOrderDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeletePurchaseOrderDetailServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.DeletePurchaseOrderDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPurchaseReturnDetailServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.AddPurchaseReturnDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddPurchaseReturnServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.AddPurchaseReturnServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeleteBatchPurchaseReturnServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.DeleteBatchPurchaseReturnServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeletePurchaseReturnServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.DeletePurchaseReturnServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeletePurchaseReturnDetailServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.DeletePurchaseReturnDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>FindPurchaseReturnServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.FindPurchaseReturnServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>PurchaseReturnServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.PurchaseReturnServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdatePurchaseReturnServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.UpdatePurchaseReturnServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurchaseReturnServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.GetPurchaseReturnServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetPurchaseReturnDetailServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.GetPurchaseReturnDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>PurchaseReturnExcelServlet</servlet-name>
+    <servlet-class>com.purchase.servlet.PurchaseReturnExcelServlet</servlet-class>
+  </servlet>
 
 
 
@@ -192,7 +437,7 @@
 
 
 
-	<servlet-mapping>
+ <servlet-mapping>
 		<servlet-name>BaseCompanySearchServlet</servlet-name>
 		<url-pattern>/base/BaseCompanySearchServlet</url-pattern>
 	</servlet-mapping>
@@ -363,11 +608,191 @@
 		<servlet-name>UpdateSaleQuotationServlet</servlet-name>
 		<url-pattern>/SaleQuotation/UpdateSaleQuotationServlet</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteSaleQuotationServlet</servlet-name>
+		<url-pattern>/SaleQuotation/DeleteSaleQuotationServlet</url-pattern>
+	</servlet-mapping>
   <servlet-mapping>
     <servlet-name>UpdateStockInServlet</servlet-name>
     <url-pattern>/StockIn/UpdateStockInServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetBasePartsServlet</servlet-name>
+    <url-pattern>/StockIn/GetBasePartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+
+    <servlet-name>GetSaleQuotationPartsServlet</servlet-name>
+    <url-pattern>/SaleQuotation/GetSaleQuotationPartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateSaleQuotationDetailServlet</servlet-name>
+    <url-pattern>/SaleQuotation/UpdateSaleQuotationDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutputExcelSaleQuotationServlet</servlet-name>
+    <url-pattern>/SaleQuotation/OutputExcelSaleQuotationServlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>GetStockOutServlet</servlet-name>
+    <url-pattern>/StockOut/GetStockOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetStockOutDetailServlet</servlet-name>
+    <url-pattern>/StockOut/GetStockOutDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteStockOutServlet</servlet-name>
+    <url-pattern>/StockOut/DeleteStockOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateStockOutServlet</servlet-name>
+    <url-pattern>/StockOut/UpdateStockOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetBasePartsByComServlet</servlet-name>
+    <url-pattern>/BaseParts/GetBasePartsByComServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteStockInDetailServlet</servlet-name>
+    <url-pattern>/StockIn/DeleteStockInDetailServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>AddPurchaseInQueryServlet</servlet-name>
+    <url-pattern>/purchase/AddPurchaseInQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPurchaseOrderServlet</servlet-name>
+    <url-pattern>/purchase/AddPurchaseOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurchaseInQueryServlet</servlet-name>
+    <url-pattern>/purchase/GetPurchaseInQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurchaseOrderServlet</servlet-name>
+    <url-pattern>/purchase/GetPurchaseOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePurchaseInQueryServlet</servlet-name>
+    <url-pattern>/purchase/DeletePurchaseInQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePurchaseOrderServlet</servlet-name>
+    <url-pattern>/purchase/DeletePurchaseOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PurchaseInQueryServlet</servlet-name>
+    <url-pattern>/purchase/PurchaseInQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PurchaseOrderServlet</servlet-name>
+    <url-pattern>/purchase/PurchaseOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdatePurchaseInQueryServlet</servlet-name>
+    <url-pattern>/purchase/UpdatePurchaseInQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdatePurchaseOrderServlet</servlet-name>
+    <url-pattern>/purchase/UpdatePurchaseOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBatchPurchaseInQueryServlet</servlet-name>
+    <url-pattern>/purchase/DeleteBatchPurchaseInQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBatchPurchaseOrderServlet</servlet-name>
+    <url-pattern>/purchase/DeleteBatchPurchaseOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FindPurchaseInQueryServlet</servlet-name>
+    <url-pattern>/purchase/FindPurchaseInQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FindPurchaseOrderServlet</servlet-name>
+    <url-pattern>/purchase/FindPurchaseOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PurchaseInQueryExcelServlet</servlet-name>
+    <url-pattern>/purchase/PurchaseInQueryExcelServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PurchaseOrderExcelServlet</servlet-name>
+    <url-pattern>/purchase/PurchaseOrderExcelServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurchaseInQueryDetailServlet</servlet-name>
+    <url-pattern>/purchase/GetPurchaseInQueryDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurchaseOrderDetailServlet</servlet-name>
+    <url-pattern>/purchase/GetPurchaseOrderDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePurchaseInQueryDetailServlet</servlet-name>
+    <url-pattern>/purchase/DeletePurchaseInQueryDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPurchaseInQueryDetailServlet</servlet-name>
+    <url-pattern>/purchase/AddPurchaseInQueryDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPurchaseOrderDetailServlet</servlet-name>
+    <url-pattern>/purchase/AddPurchaseOrderDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePurchaseOrderDetailServlet</servlet-name>
+    <url-pattern>/purchase/DeletePurchaseOrderDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPurchaseReturnDetailServlet</servlet-name>
+    <url-pattern>/purchase/AddPurchaseReturnDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPurchaseReturnServlet</servlet-name>
+    <url-pattern>/purchase/AddPurchaseReturnServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteBatchPurchaseReturnServlet</servlet-name>
+    <url-pattern>/purchase/DeleteBatchPurchaseReturnServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePurchaseReturnServlet</servlet-name>
+    <url-pattern>/purchase/DeletePurchaseReturnServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePurchaseReturnDetailServlet</servlet-name>
+    <url-pattern>/purchase/DeletePurchaseReturnDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FindPurchaseReturnServlet</servlet-name>
+    <url-pattern>/purchase/FindPurchaseReturnServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PurchaseReturnServlet</servlet-name>
+    <url-pattern>/purchase/PurchaseReturnServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdatePurchaseReturnServlet</servlet-name>
+    <url-pattern>/purchase/UpdatePurchaseReturnServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurchaseReturnServlet</servlet-name>
+    <url-pattern>/purchase/GetPurchaseReturnServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPurchaseReturnDetailServlet</servlet-name>
+    <url-pattern>/purchase/GetPurchaseReturnDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PurchaseReturnExcelServlet</servlet-name>
+    <url-pattern>/purchase/PurchaseReturnExcelServlet</url-pattern>
+  </servlet-mapping>
+  
+  
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
 </web-app>

@@ -1,4 +1,7 @@
 package com.stock.entity;
+
+import com.base.entity.BaseParts;
+
 public class StockOutDetail {
 	private String code;//主键
 	private String outCode;//出库单据编号
@@ -10,6 +13,14 @@ public class StockOutDetail {
 	private int wnums;//当前库存
 	private double lastPrice;//上次价格
 	private String Remarks;//备注
+	private BaseParts baseParts;
+	
+	public BaseParts getBaseParts() {
+		return baseParts;
+	}
+	public void setBaseParts(BaseParts baseParts) {
+		this.baseParts = baseParts;
+	}
 	public String getCode() {
 		return code;
 	}

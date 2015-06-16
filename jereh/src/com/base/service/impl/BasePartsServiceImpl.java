@@ -29,5 +29,9 @@ public class BasePartsServiceImpl implements BasePartsService {
 		// TODO Auto-generated method stub
 		return basePartsDao.update(baseParts);
 	}
+	@Override
+	public PageBean findByCom(BaseParts bp, int pageNo, int pageSize) {		
+		return basePartsDao.findBasePartsByCom(bp, pageNo, pageSize);
+	}
 
 }

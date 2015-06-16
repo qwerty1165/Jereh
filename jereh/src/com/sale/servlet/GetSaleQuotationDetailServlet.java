@@ -63,14 +63,14 @@ public class GetSaleQuotationDetailServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/json;charset=utf-8");
         String scode = request.getParameter("code");
+        
         JsonConfig config=new JsonConfig();
 		config.registerJsonValueProcessor(Date.class,
 				new JSONDateProcessor("yyyyƒÍMM‘¬dd»’"));
-        List<SaleQuotation_Detail> list = saleQuotationService.showDetail(scode);
+		
+	    List<SaleQuotation_Detail> list = saleQuotationService.showDetail(scode);
         JSONObject jsonObject=new JSONObject();
-		Map attrs=new HashMap();
-		
-		
+		Map attrs=new HashMap();		
 		 attrs.put("rows", list);
 		jsonObject.putAll(attrs,config);
 		

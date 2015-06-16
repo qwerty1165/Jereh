@@ -80,7 +80,9 @@ $(function(){
 		pageList:[3,5,10],//设置分页尺寸下拉列表中的数据
 		pageSize:10,
 	});	
-	
+	$('#list').datagrid('getPager').pagination({
+    	displayMsg:'当前显示从第 {from} 条到第 {to} 条，共 {total} 条记录'
+	});
 	
 });
 function showDailog(stitle){
@@ -110,20 +112,24 @@ function updateRow(idx){
 	var codeName=row.codeName;//字典名称
 	var categoryCode=row.categoryCode;//所属类别	
 	var orderNo=row.orderNo;//排序编号
-	var isShows=row.isShow;//显示状态
+	var isShow=row.isShow;//显示状态
 	var remarks=row.remarks;//备注
 	
 	$("input[name='code']").val(code).attr("readonly",true);
 	$("input[name='codeName']").val(codeName);
 	$("input[name='orderNo']").val(orderNo);
+	if(isShow==1){
+		$("input[name='isShow']:first").prop("checked",true);
+	}else{
+		$("input[name='isShow']:last").prop("checked",true);
+	};
 	
-	
-	for(var i=0;i<isShows.length;i++){
+/* 	for(var i=0;i<isShows.length;i++){
 		if(isShows[i].checked){
 			$("input[name='isShow']").attr("checked",true);
 		}
 		break;
-	};
+	}; */
 	
 	$("input[name='remarks']").val(remarks);
 	$("select[name='categoryCode']").val(categoryCode);	

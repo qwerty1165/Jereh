@@ -42,19 +42,14 @@ public class SearchBasePartsServlet extends HttpServlet {
 		BaseParts bp=new BaseParts();
 		String partsNo=request.getParameter("searchNo");
 		String partsName=request.getParameter("name");
-		String partsCategory=request.getParameter("typeOpt");
+		
 		if(partsNo!=null&&!partsNo.equals("")){
 			bp.setPartsNo(partsNo);			
 		}
 		if(partsName!=null&&!partsName.equals("")){		
 			bp.setPartsName(partsName);
-		}
-		if(partsCategory!=null&&!partsCategory.equals("--«Î—°‘Ò--")){
-			bp.setPartsCategory(partsCategory);				
-		}
-		PageBean pageBean=basePartsService.findAll(bp,Integer.parseInt(pageNo), Integer.parseInt(pageSize));
-		
-		
+		}	
+		PageBean pageBean=basePartsService.findByCom(bp,Integer.parseInt(pageNo), Integer.parseInt(pageSize));
 		JsonConfig  config=new JsonConfig();
 		config.setExcludes(new String[]{"addDate","addIp","addUserName","compCode","costPrice","spell","partsUnit","partsSize","partsImg"});
 		

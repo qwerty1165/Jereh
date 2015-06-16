@@ -1,12 +1,12 @@
 package com.stock.dao.impl;
-
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import com.common.dao.BaseDao;
 import com.common.entity.PageBean;
 import com.stock.dao.StockInDao;
@@ -52,7 +52,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				si.setRemarks(rs.getString("remarks"));
 				si.setIsShow(rs.getString("isShow"));
 				si.setNums(rs.getInt("nums"));
-				si.setNumsPrice(rs.getDouble("numsPrice"));
+				si.setNumsPrice(rs.getDouble("numsPrice"));				
 				si.setState(rs.getString("state"));
 				si.setCompCode(rs.getString("compCode"));
 				si.setAddDate(new Date(rs.getDate("adddate").getTime()));
@@ -72,9 +72,29 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 	}
 
 	@Override
-	public int delete(String code) {	
-		String sql="delete from stockin where code=?";
-		return super.executeUpdate(sql, code);
+	public int delete(String code) {			
+		int ret=0;
+		String sql1="delete from stockin where code='"+code+"'";
+		String sql2="delete from stockin_detail where incode='"+code+"'";
+		Connection conn=super.getConnection();
+		Statement state=null;
+		try{
+			state=conn.createStatement();
+			state.addBatch(sql2);
+			state.addBatch(sql1);
+			state.executeBatch();
+			ret=1;
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try{
+				if(state!=null)state.close();
+				if(conn!=null)conn.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return ret;
 	}
 
 	@Override
@@ -84,7 +104,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				"intype,isroad,isinvoice," +//3
 				"remarks,isshow,nums," +//4
 				"numsprice,state,compcode," +//5
-				"adddate,adduser,adduername," +//6
+				"adddate,adduser,addusername," +//6
 				"addip) values (?,?,?," +//1
 				"?,?,?," +//2
 				"?,?,?," +//3
@@ -92,7 +112,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				"?,?,?," +//5
 				"sysdate,?,?," +//6
 				"?)";
-		return super.executeUpdate(sql, new Object[]{in.getCode(),in.getInDate(),in.getSupplierCode(),
+		return super.executeUpdate(sql, new Object[]{in.getCode(),new java.sql.Date(in.getInDate().getTime()),in.getSupplierCode(),
 				in.getContacter(),in.getTelphone(),in.getFax(),
 				in.getInType(),in.getIsRoad(),in.getIsInvoice(),
 				in.getRemarks(),in.getIsShow(),in.getNums(),
@@ -103,8 +123,17 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 
 	@Override
 	public int update(StockIn in) {
-	//	String sql="";
-		return 0;
+		String sql="update stockin set indate=?,suppliercode=?," +
+				"contacter=?,telphone=?,fax=?," +
+				"intype=?,isroad=?,isinvoice=?," +
+				"remarks=?,isshow=?," +
+				"adddate=sysdate " +
+				"where code=?";
+		return super.executeUpdate(sql, new Object[]{new java.sql.Date(in.getInDate().getTime()),in.getSupplierCode(),
+				in.getContacter(),in.getTelphone(),in.getFax(),
+				in.getInType(),in.getIsRoad(),in.getIsInvoice(),
+				in.getRemarks(),in.getIsShow(),
+				in.getCode()});
 	}
 
 	

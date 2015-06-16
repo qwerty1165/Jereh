@@ -23,32 +23,13 @@ public class UpdateSaleQuotationServlet extends HttpServlet {
 		super();
 	}
 
-	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		this.doPost(request, response);
 	}
 
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
+
 	SaleQuotationService saleQuotationService = new SaleQuotationServiceImpl();
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -68,12 +49,12 @@ public class UpdateSaleQuotationServlet extends HttpServlet {
 		}
 		saleQuotation.setCustomercode(request.getParameter("customercode"));
 		saleQuotation.setCsName(request.getParameter("csName"));
-		saleQuotation.setContacter(request.getParameter("contacter"));
+		saleQuotation.setContacter(new String(request.getParameter("contacter").getBytes("iso8859-1"),"utf-8"));
 		saleQuotation.setTelphone(request.getParameter("telphone"));
 		saleQuotation.setFax(request.getParameter("fax"));
 		saleQuotation.setRemarks(request.getParameter("remarks"));
 		
-		if(opt=="1"){
+		if(opt.equals("1")){
 			saleQuotationService.addSaleQuotation(saleQuotation);
 			response.sendRedirect("/jereh/sale/salequotation.jsp");
 		}

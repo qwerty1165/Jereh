@@ -1,5 +1,5 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="textml; charset=utf-8" />
 <title>无标题文档</title>
@@ -35,7 +35,6 @@ $(function(){
 		}
 	});
 	//ajax
-	//lkjokjl
 	$("#partsList").datagrid({    //往哪里添加table
 		title:'配件信息管理',
 		idField:'partsCode',  //必须选择一个id
@@ -66,17 +65,15 @@ $(function(){
 				content += "<input type='button' value='修改' onclick='modifyParts(\"" + idx + "\")' />";
 				content += "<input type='button' value='打印并下载' onclick='printParts(" + idx + ")' />";
 				return content;	
-			}},
-			{field:'partsGeneralPartsNo',title:'通用件号',fixed:true,hidden:true},
-			{field:'partsUnit',title:'配件单位',fixed:true,hidden:true},//hidden:true
-			{field:'partsSize',title:'配件尺寸',fixed:true,hidden:true},
-			{field:'partsWeight',title:'配件重量',fixed:true,hidden:true}
-			
+			}}
 		]],
 		fit:true,
 		pagination:true,   //翻页
 		pageList:[3,5,10],  //可选一页显示多少条
 		pageSize:5   //默认一页显示多少条
+	});
+	$("#partsList").datagrid('getPager').pagination({
+    	displayMsg:'当前显示从第 {from} 条到第 {to} 条，共 {total} 条记录'
 	});
 });
 
@@ -92,7 +89,7 @@ function getCurDate(){
 	return "MTPJ"+year+month+day+hour+minute+second;  
 	}
 
-//批量删除客户
+//批量删除
 function delBatchParts(){
 	var rows = $("#partsList").datagrid("getSelections");//得到被select的一个数组
 	if(rows.length == 0)
@@ -131,7 +128,42 @@ function delParts(partsCode){
 		}
 	});
 }
-
+//批量删除
+function delBatchRow(){
+        //返回选中多行  
+	var selRow = $("#list").datagrid("getSelections");  
+        //判断是否选中行  
+	if (selRow.length==0) {  
+        $.messager.alert("提示", "请选择要删除的行！", "info");  
+        return;  
+    }else{                           
+        $.messager.confirm('提示', '是否删除选中数据?', function (r) {   
+            if (r) {  
+                //批量获取选中行的评估模板ID  
+                var count=0;
+		        for (i = 0; i < selRow.length;i++) {  
+				   var code=selRow[i].code;
+				   var categoryCode=selRow[i].categoryCode;           
+		           $.ajax({  
+		                type:'post',  
+		                async: false,  
+		                url:'/jereh/baseParts/DeleteBasePartsServlet?partsCode='+partsCode,		               	
+		             	success:function(data){
+							if(data==1){								
+								count++;							
+							}
+						}
+		            });               
+		        }
+			    $("#list").datagrid("reload");	 
+		        if(count==selRow.length){
+		        	alert("批量删除成功！");
+		        }
+            }   
+       });    
+   	}  
+}
+//添加的
 function showDialog(stitle){
 	$("#addParts").dialog({
 		title:stitle,
@@ -162,10 +194,7 @@ function modifyParts(idx){
 	var modelOld=row.partsModelOld;//旧型号
 	var size=row.partsSize;//尺寸
 	var weight=row.partsWeight;//重量
-	var unit=row.partsUnit;
-//	var img=row.partsImg;//
     var price=row.salePrice;
-    var GeneralPartsNo=row.partsGeneralPartsNo;
 	var isShow=row.isShow;//  显示状态
 	var remarks=row.remarks;//备注
 	var no=row.partsNo;
@@ -178,10 +207,7 @@ function modifyParts(idx){
 	$("input[name='modelOld']").val(modelOld);
 	$("input[name='size']").val(size);
 	$("input[name='weight']").val(weight);
-	$("input[name='unit']").val(unit);
 	$("input[name='price']").val(price);
-//	$("input[name='img']").val(img);
-    $("input[name='GeneralPartsNo']").val(GeneralPartsNo);
 	$("input[name='isShow']").val(isShow);
 	$("input[name='remarks']").val(remarks);
 	$("input[name='no']").val(no);
@@ -203,7 +229,7 @@ function printParts(idx){
 	var partsBrand=row.partsBrand;//公司
 	var partsModel=row.partsModel; //型号
 	var partsModelOld=row.partsModelOld; //旧型号
-	var partsSize=row.partsSize; //尺寸
+	//var partsSize=row.partsSize; //尺寸
 	var partsWeight=row.partsWeight; //重量
 	//var img=row.partsImg;
     var salePrice=row.salePrice;

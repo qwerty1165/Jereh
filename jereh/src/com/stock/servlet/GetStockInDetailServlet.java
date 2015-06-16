@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import com.stock.entity.StockInDetail;
-import com.stock.service.StockInDetailService;
-import com.stock.service.impl.StockInDetailServiceImpl;
+import com.stock.service.StockInService;
+import com.stock.service.impl.StockInServiceImpl;
 
 public class GetStockInDetailServlet extends HttpServlet {
-	private StockInDetailService service=new StockInDetailServiceImpl();
+	private StockInService service=new StockInServiceImpl();
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doPost(request, response);
