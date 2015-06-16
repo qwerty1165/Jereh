@@ -57,48 +57,11 @@ public class BasePartsDaoImpl extends BaseDao implements BasePartsDao {
 		}finally{
 			super.closeAll();
 		}
-		pageBean.setData(basePartsList);
-		sql="select count(partscode) from baseParts";
+		pageBean.setData(basePartsList);		
 		pageBean.setRecordCount(super.executeTotalCount(sql));
 		return pageBean;
 	
-		}
-		
-//	@Override
-//	public PageBean findBaseParts(int pageNo, int pageSize) {
-//		
-//		String sql="select * from baseparts";
-//		ResultSet rs=super.executeQueryForPage(sql,pageNo,pageSize);
-//		PageBean pageBean=new PageBean();
-//		List<BaseParts> basePartsList=new ArrayList<BaseParts>();
-//		BaseParts baseParts=null;
-//		try {
-//			while(rs.next()){
-//				baseParts=new BaseParts();
-//				baseParts.setPartsCode(rs.getString("partscode"));
-//				baseParts.setPartsNo(rs.getString("PartsNo"));
-//				baseParts.setPartsCategory(rs.getString("partsCategory"));
-//				baseParts.setPartsName(rs.getString("partsName"));
-//				baseParts.setPartsBrand(rs.getString("partsBrand"));
-//				baseParts.setPartsModel(rs.getString("partsModel"));
-//				baseParts.setPartsModelOld(rs.getString("partsModelOld"));
-//				baseParts.setSalePrice(rs.getInt("salePrice"));
-//				baseParts.setAddUser(rs.getString("addUser"));
-//				baseParts.setIsShow(rs.getString("isShow"));
-//				baseParts.setRemarks(rs.getString("remarks"));
-//				basePartsList.add(baseParts);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally{
-//			super.closeAll();
-//		}
-//		pageBean.setData(basePartsList);
-//		sql="select count(partscode) from baseParts";
-//		pageBean.setRecordCount(super.executeTotalCount(sql));
-//		return pageBean;
-//	}
+		}		
 
 	/** 
 	 * 插入配件信息
@@ -137,6 +100,50 @@ public class BasePartsDaoImpl extends BaseDao implements BasePartsDao {
 				baseParts.getPartsWeight(),baseParts.getRemarks(),
 				baseParts.getPartsName(),baseParts.getPartsCategory(),baseParts.getPartsNo(),baseParts.getPartsCode(),
 				baseParts.getIsShow(),baseParts.getPartsCode()});
+	}
+
+	@Override
+	public PageBean findBasePartsByCom(BaseParts bp, int pageNo, int pageSize) {
+		String sql="select bp.*,NUMS from  baseparts bp join stock on bp.partscode=stock.pcode " +
+				" where 1=1 ";
+		PageBean pageBean=new PageBean();
+		if(bp.getPartsNo()!=null&&!bp.getPartsNo().equals("")){
+			sql+=" and partsno like "+"'%"+bp.getPartsNo()+"%'";}
+		 if(bp.getPartsName()!=null&&!bp.getPartsName().equals("")){
+			sql+=" and partsname like"+"'%"+bp.getPartsName()+"%'";	}
+		
+		ResultSet rs=super.excuteQueryForPage(sql,pageNo,pageSize);
+		List<BaseParts> basePartsList=new ArrayList<BaseParts>();
+		BaseParts baseParts=null;
+		try {
+			while(rs.next()){
+				baseParts=new BaseParts();
+				baseParts.setPartsCode(rs.getString("partscode"));
+				baseParts.setPartsNo(rs.getString("PartsNo"));
+				baseParts.setPartsCategory(rs.getString("partsCategory"));
+				baseParts.setPartsName(rs.getString("partsName"));
+				baseParts.setPartsBrand(rs.getString("partsBrand"));
+				baseParts.setPartsModel(rs.getString("partsModel"));
+				baseParts.setPartsModelOld(rs.getString("partsModelOld"));
+				baseParts.setSalePrice(rs.getInt("salePrice"));
+				baseParts.setAddUser(rs.getString("addUser"));
+				baseParts.setIsShow(rs.getString("isShow"));
+				baseParts.setRemarks(rs.getString("remarks"));
+				baseParts.setPartsGeneralPartsNo(rs.getString("partsGeneralPartsNo"));
+				baseParts.setPartsSize(rs.getString("partsSize"));
+				baseParts.setPartsWeight(rs.getString("partsWeight"));
+				baseParts.setPartsUnit(rs.getString("partsUnit"));
+				baseParts.setNums(rs.getInt("nums"));
+				basePartsList.add(baseParts);
+			}
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally{
+			super.closeAll();
+		}
+		pageBean.setData(basePartsList);		
+		pageBean.setRecordCount(super.executeTotalCount(sql));
+		return pageBean;
 	}
 
 

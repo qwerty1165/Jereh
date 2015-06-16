@@ -13,4 +13,5 @@ public interface StockInService {
  	public int insertStockIn(StockIn in);
  	public int updateStockIn(StockIn in);
  	public List<StockInDetail> getStockInDetailList(String inCode);
+ 	public int deleteStockInDetail(String code);
 }

@@ -128,7 +128,42 @@ function delParts(partsCode){
 		}
 	});
 }
-
+//批量删除
+function delBatchRow(){
+        //返回选中多行  
+	var selRow = $("#list").datagrid("getSelections");  
+        //判断是否选中行  
+	if (selRow.length==0) {  
+        $.messager.alert("提示", "请选择要删除的行！", "info");  
+        return;  
+    }else{                           
+        $.messager.confirm('提示', '是否删除选中数据?', function (r) {   
+            if (r) {  
+                //批量获取选中行的评估模板ID  
+                var count=0;
+		        for (i = 0; i < selRow.length;i++) {  
+				   var code=selRow[i].code;
+				   var categoryCode=selRow[i].categoryCode;           
+		           $.ajax({  
+		                type:'post',  
+		                async: false,  
+		                url:'/jereh/baseParts/DeleteBasePartsServlet?partsCode='+partsCode,		               	
+		             	success:function(data){
+							if(data==1){								
+								count++;							
+							}
+						}
+		            });               
+		        }
+			    $("#list").datagrid("reload");	 
+		        if(count==selRow.length){
+		        	alert("批量删除成功！");
+		        }
+            }   
+       });    
+   	}  
+}
+//添加的
 function showDialog(stitle){
 	$("#addParts").dialog({
 		title:stitle,
@@ -159,7 +194,6 @@ function modifyParts(idx){
 	var modelOld=row.partsModelOld;//旧型号
 	var size=row.partsSize;//尺寸
 	var weight=row.partsWeight;//重量
-//	var img=row.partsImg;//
     var price=row.salePrice;
 	var isShow=row.isShow;//  显示状态
 	var remarks=row.remarks;//备注
@@ -174,7 +208,6 @@ function modifyParts(idx){
 	$("input[name='size']").val(size);
 	$("input[name='weight']").val(weight);
 	$("input[name='price']").val(price);
-//	$("input[name='img']").val(img);
 	$("input[name='isShow']").val(isShow);
 	$("input[name='remarks']").val(remarks);
 	$("input[name='no']").val(no);

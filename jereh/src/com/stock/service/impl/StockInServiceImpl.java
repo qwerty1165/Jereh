@@ -27,8 +27,8 @@ public class StockInServiceImpl implements StockInService {
 	}
 
 	@Override
-	public int insertStockIn(StockIn in) {		
-		return dao.insert(in);
+	public int insertStockIn(StockIn in) {	
+		return dao.insert(in);//+detailDao.insertBatchDetail(in.getDetailList());
 	}
 
 	@Override
@@ -39,6 +39,11 @@ public class StockInServiceImpl implements StockInService {
 	@Override
 	public List<StockInDetail> getStockInDetailList(String inCode) {		
 		return detailDao.findStockInDetailList(inCode);
+	}
+
+	@Override
+	public int deleteStockInDetail(String code) {		
+		return detailDao.delete(code);
 	}
 
 }
