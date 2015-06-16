@@ -1,7 +1,8 @@
 package com.stock.dao.impl;
-
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +52,7 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 				si.setRemarks(rs.getString("remarks"));
 				si.setIsShow(rs.getString("isShow"));
 				si.setNums(rs.getInt("nums"));
-				si.setNumsPrice(rs.getDouble("numsPrice"));
+				si.setNumsPrice(rs.getDouble("numsPrice"));				
 				si.setState(rs.getString("state"));
 				si.setCompCode(rs.getString("compCode"));
 				si.setAddDate(new Date(rs.getDate("adddate").getTime()));
@@ -71,9 +72,29 @@ public class StockInDaoImpl extends BaseDao implements StockInDao {
 	}
 
 	@Override
-	public int delete(String code) {	
-		String sql="delete from stockin where code=?";
-		return super.executeUpdate(sql, code);
+	public int delete(String code) {			
+		int ret=0;
+		String sql1="delete from stockin where code='"+code+"'";
+		String sql2="delete from stockin_detail where incode='"+code+"'";
+		Connection conn=super.getConnection();
+		Statement state=null;
+		try{
+			state=conn.createStatement();
+			state.addBatch(sql2);
+			state.addBatch(sql1);
+			state.executeBatch();
+			ret=1;
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try{
+				if(state!=null)state.close();
+				if(conn!=null)conn.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return ret;
 	}
 
 	@Override
