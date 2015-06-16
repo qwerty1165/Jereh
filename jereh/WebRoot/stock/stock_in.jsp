@@ -68,61 +68,97 @@ $(function(){
 		url:'/jereh/StockIn/GetStockInServlet',	
 		idField:'code',		
 		singleSelect:false,
-		success:function(data){//data是GetChannelServlet中取得的json数据	
-			if(data.total==0){
-				alert("没有数据！");	
-			}
-		},
 		toolbar:'#tools',
 		columns:[[
-					{field:'id',checkbox:true},
-					{field:'code',title:'入库单号',fixed:true
-						,formatter:function(val,row,idx){							
-							var opt="<input type='button' value='删除' onclick=\"delRow('"+row.code+"')\"/>";
-							opt+="<input type='button' value='修改'  onclick='updateRow("+idx+")'/>";							
-							return opt; 
-						}
-					},
-					{field:'isShow',title:'是否显示',hidden:true},//hidden:true
-					{field:'isInvoice',title:'是否开票',hidden:true},
-					{field:'inType',title:'入库类型',hidden:true},
-					{field:'supplierCode',title:'供应编号',fixed:true},
-					{field:'contacter',title:'联系人',hidden:true},
-					{field:'telphone',title:'电话',hidden:true},
-					{field:'fax',title:'传真',hidden:true},					
-					{field:'inDate',title:'入库日期',fixed:true},					
-					{field:'supplierName',title:'供应商名',fixed:true},
-					{field:'nums',title:'数量',fixed:80},
-					{field:'numsPrice',title:'总货值',fixed:true},
-					
-					{field:'payState',title:'付款情况',fixed:true
-						,formatter:function(val,row,idx){							
-							return "0.00";
-						}
-					},
-					{field:'getState',title:'收票情况',fixed:true
-						,formatter:function(val,row,idx){							
-							return "0.00";
-						}
-					},					
-					{field:'scstate',title:'审核状态',fixed:true
-						,formatter:function(val,row,idx){							
-								return "审核中";						
-						}
-					},	
-					{field:'addUserName',title:'操作员',fixed:true},
-					{field:'opt',title:'操作',fixed:true
-						,formatter:function(val,row,idx){//update
-							return "<input type='button' value='删除' onclick=\"delRow('"+row.code+"')\"/>";							 
-						
-						}
-					}
-				]],				
+			{field:'id',checkbox:true},
+			{field:'code',title:'入库单号',fixed:true},
+			{field:'isShow',title:'是否显示',hidden:true},//hidden:true
+			{field:'isInvoice',title:'是否开票',hidden:true},
+			{field:'inType',title:'入库类型',hidden:true},
+			{field:'supplierCode',title:'供应编号',fixed:true},
+			{field:'contacter',title:'联系人',hidden:true},
+			{field:'telphone',title:'电话',hidden:true},
+			{field:'fax',title:'传真',hidden:true},					
+			{field:'inDate',title:'入库日期',fixed:true},					
+			{field:'supplierName',title:'供应商名',fixed:true},
+			{field:'nums',title:'数量',fixed:80},
+			{field:'numsPrice',title:'总货值',fixed:true},
+			{field:'payState',title:'付款情况',fixed:true,
+				formatter:function(val,row,idx){							
+					return "0.00";
+				}
+			},
+			{field:'getState',title:'收票情况',fixed:true,
+				formatter:function(val,row,idx){							
+					return "0.00";
+				}
+			},					
+			{field:'scstate',title:'审核状态',fixed:true,
+				formatter:function(val,row,idx){							
+					return "审核中";						
+				}
+			},	
+			{field:'addUserName',title:'操作员',fixed:true},
+			{field:'opt',title:'操作',fixed:true,
+				formatter:function(val,row,idx){							
+				var opt="<input type='button' value='删除' onclick=\"delRow('"+row.code+"')\"/>";
+				opt+="<input type='button' value='修改'  onclick='updateRow("+idx+")'/>";							
+					return opt; 
+				}
+			}
+		]],				
 		pagination:true,//分页 
 		pageList:[3,5,10],//设置分页尺寸下拉列表中的数据
 		pageSize:10
 	});	
-	
+	//显示详细列表
+	$("#detailList").datagrid({
+		columns:[[	
+			{field:'orderCode',title:'订单编号',fixed:true},
+			{field:'pCode',title:'件号',fixed:true},									
+			{field:'partsName',title:'配件名称',fixed:true,
+				formatter:function(val,row,idx){
+					return row.baseParts.partsName;
+				}
+			},
+			{field:'partsBrand',title:'配件品牌',fixed:true,
+				formatter:function(val,row,idx){
+					return row.baseParts.partsBrand;
+				}
+			},
+			{field:'partsModel',title:'配件型号',fixed:true,
+				formatter:function(val,row,idx){
+					return row.baseParts.partsModel;
+				}
+			},									
+			{field:'nums',title:'数量',fixed:true},
+			{field:'price',title:'单价',fixed:true},
+			{field:'payState',title:'金额',fixed:true,
+				formatter:function(val,row,idx){
+					return row.nums*row.price;
+				}
+			},
+			{field:'wareHouse',title:'所属仓库',fixed:true,
+				formatter:function(val,row,idx){
+					return "主仓库";
+				}
+			},					
+			{field:'remarks',title:'备注',fixed:true}				
+		]],			
+	});	
+	//添加修改的供应商列表
+	$("#cusList").datagrid({  		
+		toolbar:'#cusListTb',
+		idField:'code',
+		columns:[[
+			{field:'code',title:'供应商代码',fixed:true},
+			{field:'csName',title:'供应商名称',fixed:true},
+			{field:'contacter',title:'联系人员',fixed:true},
+			{field:'telephone',title:'电话',fixed:true},
+			{field:'fax',title:'传真',fixed:true},
+			{field:'address',title:'地址',fixed:true}
+		]]		
+	}); 	
 	//添加修改的详细列表
 	$("#updateDetailList").datagrid({			
 		columns:[[	
@@ -181,44 +217,7 @@ function detail(incode){
 	$("#detailInfo").show();
 	$("#detailList").datagrid({
 		url:'/jereh/StockIn/GetStockInDetailServlet',		
-		queryParams:{'inCode':incode},		
-		success:function(data){//data是GetChannelServlet中取得的json数据	
-			if(data.total==0){
-				alert("没有数据！");	
-			}
-		},		
-		columns:[[	
-			{field:'orderCode',title:'订单编号',fixed:true},
-			{field:'pCode',title:'件号',fixed:true},									
-			{field:'partsName',title:'配件名称',fixed:true,
-				formatter:function(val,row,idx){
-					return row.baseParts.partsName;
-				}
-			},
-			{field:'partsBrand',title:'配件品牌',fixed:true,
-				formatter:function(val,row,idx){
-					return row.baseParts.partsBrand;
-				}
-			},
-			{field:'partsModel',title:'配件型号',fixed:true,
-				formatter:function(val,row,idx){
-					return row.baseParts.partsModel;
-				}
-			},									
-			{field:'nums',title:'数量',fixed:true},
-			{field:'price',title:'单价',fixed:true},
-			{field:'payState',title:'金额',fixed:true,
-				formatter:function(val,row,idx){
-					return row.nums*row.price;
-				}
-			},
-			{field:'wareHouse',title:'所属仓库',fixed:true,
-				formatter:function(val,row,idx){
-					return "主仓库";
-				}
-			},					
-			{field:'remarks',title:'备注',fixed:true}				
-		]],			
+		queryParams:{'inCode':incode}
 	});		
 }
 /**表头查找方法*/
@@ -280,7 +279,7 @@ function delDetailRow(code){
 				success:function(data){
 					if(data==1){
 						alert("删除成功！");
-						$("#list").datagrid("reload");							
+						$("#updateDetailList").datagrid("reload");							
 					}
 				}
 			});	
@@ -374,16 +373,6 @@ function showSupplier(){
 	$("#customer").dialog("open");
 	$("#cusList").datagrid({  
 		url:'/jereh/BaseCustomerSupplier/GetBaseCustomerSupplierServlet',
-		toolbar:'#cusListTb',
-		idField:'code',
-		columns:[[
-			{field:'code',title:'客户代码',fixed:true},
-			{field:'csName',title:'客户名称',fixed:true},
-			{field:'contacter',title:'联系人员',fixed:true},
-			{field:'telephone',title:'电话',fixed:true},
-			{field:'fax',title:'传真',fixed:true},
-			{field:'address',title:'地址',fixed:true}
-		]],
 		onClickRow:function(idx, row){
 			var row=$("#cusList").datagrid("getRows")[idx];
 			var code=row.code;
@@ -450,10 +439,9 @@ function confirmAdd(){
         return;  
     }else{                           
         $.messager.confirm('提示', '是否添加选中数据?', function (r) {   
-            if (r) {                  
-		       	$("#update").show(); 		        
-		        for (i = 0; i < selRow.length;i++) {
-		        	alert(selRow[i].partsCode);
+            if (r) {              
+		     	$("update").show;
+		        for (i = 0; i < selRow.length;i++) {		        	
 				  	$("#updateDetailList").datagrid("appendRow",selRow[i]);	              		
 		        }	
             }   
