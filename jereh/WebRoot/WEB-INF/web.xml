@@ -479,6 +479,10 @@
 		<servlet-name>UpdateSaleQuotationServlet</servlet-name>
 		<servlet-class>com.sale.servlet.UpdateSaleQuotationServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>DeleteSaleQuotationServlet</servlet-name>
+		<servlet-class>com.sale.servlet.DeleteSaleQuotationServlet</servlet-class>
+	</servlet>
 	<servlet>		
 		<servlet-name>GetSaleReturnServlet</servlet-name>
 		<servlet-class>com.sale.servlet.GetSaleReturnServlet</servlet-class>
@@ -529,6 +533,18 @@
     <servlet-class>com.sale.servlet.OutExcleSaleOrderServlet</servlet-class>
   </servlet>
 
+    <servlet-name>GetSaleQuotationPartsServlet</servlet-name>
+    <servlet-class>com.sale.servlet.GetSaleQuotationPartsServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateSaleQuotationDetailServlet</servlet-name>
+    <servlet-class>com.sale.servlet.UpdateSaleQuotationDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OutputExcelSaleQuotationServlet</servlet-name>
+    <servlet-class>com.sale.servlet.OutputExcelSaleQuotationServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>GetStockOutServlet</servlet-name>
     <servlet-class>com.stock.servlet.GetStockOutServlet</servlet-class>
   </servlet>
@@ -552,6 +568,14 @@
     <servlet-name>DeleteStockInDetailServlet</servlet-name>
     <servlet-class>com.stock.servlet.DeleteStockInDetailServlet</servlet-class>
   </servlet>
+
+
+
+
+
+
+
+
 
 
 
@@ -739,6 +763,10 @@
 		<servlet-name>UpdateSaleQuotationServlet</servlet-name>
 		<url-pattern>/SaleQuotation/UpdateSaleQuotationServlet</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteSaleQuotationServlet</servlet-name>
+		<url-pattern>/SaleQuotation/DeleteSaleQuotationServlet</url-pattern>
+	</servlet-mapping>
   <servlet-mapping>
     <servlet-name>UpdateStockInServlet</servlet-name>
     <url-pattern>/StockIn/UpdateStockInServlet</url-pattern>
@@ -762,6 +790,19 @@
   <servlet-mapping>
     <servlet-name>OutExcleSaleOrderServlet</servlet-name>
     <url-pattern>/saleOrder/OutExcleSaleOrderServlet</url-pattern>
+
+    <servlet-name>GetSaleQuotationPartsServlet</servlet-name>
+    <url-pattern>/SaleQuotation/GetSaleQuotationPartsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateSaleQuotationDetailServlet</servlet-name>
+    <url-pattern>/SaleQuotation/UpdateSaleQuotationDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OutputExcelSaleQuotationServlet</servlet-name>
+    <url-pattern>/SaleQuotation/OutputExcelSaleQuotationServlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
     <servlet-name>GetStockOutServlet</servlet-name>
     <url-pattern>/StockOut/GetStockOutServlet</url-pattern>
   </servlet-mapping>

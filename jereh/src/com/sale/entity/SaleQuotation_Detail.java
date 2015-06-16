@@ -1,6 +1,7 @@
 package com.sale.entity;
 
 import com.base.entity.BaseParts;
+import com.stock.entity.Stock;
 
 public class SaleQuotation_Detail {
 	private String code;//报价单明细编号
@@ -18,7 +19,13 @@ public class SaleQuotation_Detail {
 	private String deliveryMode;//交货期
 	private String remarks;//备注
 	private BaseParts baseParts;
-	
+    private Stock stock;
+	public Stock getStock() {
+		return stock;
+	}
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
 	public BaseParts getBaseParts() {
 		return baseParts;
 	}
