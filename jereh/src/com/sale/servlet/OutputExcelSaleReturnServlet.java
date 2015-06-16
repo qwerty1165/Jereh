@@ -131,22 +131,27 @@ public class OutputExcelSaleReturnServlet extends HttpServlet {
 			SaleReturn saleReturn = SaleReturnList.get(i);
 			try {
 				sheet.addCell(new Label(0, i + 2, saleReturn.getCode(), style1));
-				date = format1.format(saleReturn.getXtDate());
-				sheet.addCell(new Label(1, i + 2, date, style1));
+				
+//				if(!saleReturn.getXtDate().equals("")){
+//					date = format1.format(saleReturn.getXtDate());
+//					sheet.addCell(new Label(1, i + 2, date, style1));
+//				}
+//				
 //				sheet.addCell(new Label(2, i + 2, saleReturn.getCustomerCode(),
 //						style1));
-//
+//				
 //				sheet.addCell(new Label(3, i + 2, Integer.toString(saleReturn
 //						.getNums()), style1));
+//				
 //				sheet.addCell(new Label(4, i + 2, Double.toString(saleReturn
 //						.getNumSprice()), style1));
-//				sheet.addCell(new Label(1, i + 2,"123", style1));
-//				sheet.addCell(new Label(2, i + 2, saleReturn.getTelPhone(), style1));
+//
 //				sheet.addCell(new Label(5, i + 2, saleReturn.getContacter(),
 //						style1));
+//				
 //				sheet.addCell(new Label(6, i + 2, saleReturn.getTelPhone(),
 //						style1));
-
+//
 //				if (saleReturn.getState().equals("1")) {
 //					sheet.addCell(new Label(7, i + 2, "“—…Û∫À", style1));
 //				} else {
