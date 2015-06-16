@@ -1,6 +1,5 @@
 package com.base.servlet;
 
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,14 +17,12 @@ import com.base.service.BasePartsService;
 import com.base.service.impl.BasePartsServiceImpl;
 import com.common.entity.PageBean;
 
-public class SearchBasePartsServlet extends HttpServlet {
-
+public class GetBasePartsByComServlet extends HttpServlet {
 	private BasePartsService basePartsService=new BasePartsServiceImpl();
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doPost(request, response);
 	}
-
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -42,17 +39,21 @@ public class SearchBasePartsServlet extends HttpServlet {
 		BaseParts bp=new BaseParts();
 		String partsNo=request.getParameter("searchNo");
 		String partsName=request.getParameter("name");
-		
+		String partsCategory=request.getParameter("typeOpt");
 		if(partsNo!=null&&!partsNo.equals("")){
 			bp.setPartsNo(partsNo);			
 		}
 		if(partsName!=null&&!partsName.equals("")){		
 			bp.setPartsName(partsName);
-		}	
-		PageBean pageBean=basePartsService.findByCom(bp,Integer.parseInt(pageNo), Integer.parseInt(pageSize));
-		JsonConfig  config=new JsonConfig();
-		config.setExcludes(new String[]{"addDate","addIp","addUserName","compCode","costPrice","spell","partsUnit","partsSize","partsImg"});
+		}
+		if(partsCategory!=null&&!partsCategory.equals("--请选择--")){
+			bp.setPartsCategory(partsCategory);				
+		}
+		PageBean pageBean=basePartsService.findAll(bp,Integer.parseInt(pageNo), Integer.parseInt(pageSize));
 		
+		
+		JsonConfig  config=new JsonConfig();
+		config.setExcludes(new String[]{"addDate","addIp","addUserName","compCode","costPrice","spell","partsUnit","partsSize","partsImg"});		
 		JSONObject jsonObject=new JSONObject();
 		Map attrs=new HashMap();
 		attrs.put("rows",pageBean.getData());
@@ -60,17 +61,8 @@ public class SearchBasePartsServlet extends HttpServlet {
 		
 		jsonObject.putAll(attrs,config);
 		String data=jsonObject.toString();
-		System.out.println(data);
+		System.out.println("基础-配件表---"+data);
 		response.getWriter().println(data);
-		
-		
-	}
-
-	/**
-	 * Constructor of the object.
-	 */
-	public SearchBasePartsServlet() {
-		super();
 	}
 
 }

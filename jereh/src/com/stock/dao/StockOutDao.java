@@ -1,7 +1,6 @@
 package com.stock.dao;
 
 import java.util.Date;
-
 import com.common.entity.PageBean;
 import com.stock.entity.StockOut;
 

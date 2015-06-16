@@ -26,6 +26,15 @@ public class BaseParts {
 	private String addUserName;//操作用户姓名
 	private String addIp;//操作IP
 	private String compCode;//所属公司
+	
+	private int nums;//数量
+	
+	public int getNums() {
+		return nums;
+	}
+	public void setNums(int nums) {
+		this.nums = nums;
+	}
 	public String getPartsCode() {
 		return partsCode;
 	}

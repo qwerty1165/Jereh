@@ -6,11 +6,8 @@ import java.util.List;
 public class StockIn {
 	private String code;//入库单据 主键
 	private Date inDate;//入库日期
-	private String supplierCode;//供应商编号
-	
-	private String supplierName;//供应商名称
-	
-	
+	private String supplierCode;//供应商编号	
+	private String supplierName;//供应商名称	
 	public String getSupplierName() {
 		return supplierName;
 	}
@@ -28,7 +25,7 @@ public class StockIn {
 	private int nums;//入库配件数量
 	private double numsPrice;//入库配件总价值
 	private String state;//入库单据状态
-	private String compCode;//所属公司
+	private String compCode;//所属公司	
 	private Date addDate;//操作日期
 	private String addUser;//操作账号
 	private String addUserName;//操作人姓名
@@ -41,7 +38,7 @@ public class StockIn {
 	}
 	public void setDetailList(List<StockInDetail> detailList) {
 		this.detailList = detailList;
-	}
+	}	
 	public String getCode() {
 		return code;
 	}

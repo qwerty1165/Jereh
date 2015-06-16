@@ -324,6 +324,7 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>      -->
 
+
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
@@ -511,6 +512,7 @@
   </servlet>
   <servlet>
 
+
     <servlet-name>GetSaleOrder_DetailServlet</servlet-name>
     <servlet-class>com.sale.servlet.GetSaleOrder_DetailServlet</servlet-class>
   </servlet>
@@ -527,9 +529,29 @@
     <servlet-class>com.sale.servlet.OutExcleSaleOrderServlet</servlet-class>
   </servlet>
 
-
-
-
+    <servlet-name>GetStockOutServlet</servlet-name>
+    <servlet-class>com.stock.servlet.GetStockOutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetStockOutDetailServlet</servlet-name>
+    <servlet-class>com.stock.servlet.GetStockOutDetailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteStockOutServlet</servlet-name>
+    <servlet-class>com.stock.servlet.DeleteStockOutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UpdateStockOutServlet</servlet-name>
+    <servlet-class>com.stock.servlet.UpdateStockOutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetBasePartsByComServlet</servlet-name>
+    <servlet-class>com.base.servlet.GetBasePartsByComServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteStockInDetailServlet</servlet-name>
+    <servlet-class>com.stock.servlet.DeleteStockInDetailServlet</servlet-class>
+  </servlet>
 
 
 
@@ -740,6 +762,28 @@
   <servlet-mapping>
     <servlet-name>OutExcleSaleOrderServlet</servlet-name>
     <url-pattern>/saleOrder/OutExcleSaleOrderServlet</url-pattern>
+    <servlet-name>GetStockOutServlet</servlet-name>
+    <url-pattern>/StockOut/GetStockOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetStockOutDetailServlet</servlet-name>
+    <url-pattern>/StockOut/GetStockOutDetailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteStockOutServlet</servlet-name>
+    <url-pattern>/StockOut/DeleteStockOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateStockOutServlet</servlet-name>
+    <url-pattern>/StockOut/UpdateStockOutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetBasePartsByComServlet</servlet-name>
+    <url-pattern>/BaseParts/GetBasePartsByComServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteStockInDetailServlet</servlet-name>
+    <url-pattern>/StockIn/DeleteStockInDetailServlet</url-pattern>
   </servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
