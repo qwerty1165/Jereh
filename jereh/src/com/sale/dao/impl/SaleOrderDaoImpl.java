@@ -19,10 +19,10 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 	 * */
 	@Override
 	public PageBean findSaleOrder(String code,Date startDate,Date endDate,int pageNo,int pageSize) {
-	String sql="select * from saleorder so join basecustomersupplier bc on so.customercode= " +
+	String sql="select * from saleorder so LEFT join basecustomersupplier bc on so.customercode= " +
 			"bc.code  where 1=1";
 		if(code!=null&&!code.equals("")){
-			sql+=" and code like "+"'%"+code+"%'";}
+			sql+=" and so.code like "+"'%"+code+"%'";}
 		
 		if(startDate!=null){
 			sql+=" and to_char(orderDate,'yyyy-mm-dd')>="+"'"+new SimpleDateFormat("yyyy-MM-dd").format(startDate)+"'";
@@ -61,8 +61,8 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 		pageBean.setData(saleOrderList);
 		pageBean.setRecordCount(super.executeTotalCount(sql));
 		return pageBean;
-	}
-	/**
+	} 
+	/**	
 	 * 插入订单
 	 * */
 	@Override
@@ -70,17 +70,19 @@ public class SaleOrderDaoImpl extends BaseDao implements SaleOrderDao {
 		String sql="insert into saleOrder(code,orderdate,customercode, contacter, " +
 				"telphone, fax, trans, businesser, remarks, deliverydate)values(?,?,?,?,?,?,?,?,?,?)";
 			
-		return super.executeUpdate(sql,new Object[]{saleOrder.getCode(),saleOrder.getOrderDate(),
-				saleOrder.getCustomerCode(),saleOrder.getTelphone(),saleOrder.getFax(),saleOrder.getTrans(),
-				saleOrder.getBusinesser(),saleOrder.getRemarks(),saleOrder.getDeLiveryDate()});		
+		return super.executeUpdate(sql,new Object[]{saleOrder.getCode(),new java.sql.Date(saleOrder.getOrderDate().getTime()),
+				saleOrder.getCustomerCode(),saleOrder.getContacter(),saleOrder.getTelphone(),saleOrder.getFax(),saleOrder.getTrans(),
+				saleOrder.getBusinesser(),saleOrder.getRemarks(),new java.sql.Date(saleOrder.getDeLiveryDate().getTime())});		
 	}
 	/**
 	 * 删除订单
 	 * */
 	@Override
 	public int deleteSaleOrder(String code) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String sql="delete from saleorder where code=?";	
+		
+		return super.executeUpdate(sql,new Object[]{code});
 	}
 	/**
 	 * 修改订单

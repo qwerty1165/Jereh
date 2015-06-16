@@ -95,7 +95,7 @@ $("#orderList").datagrid({//往哪里添加table
 			},
 			{field:'addUser',title:'操作员',fixed:true},
 			{field:'opt',title:'操作',fixed:true,formatter:function(val,row,idx){
-				var content = "<input type='button' value='删除' onclick='delParts(\"" + row.partsCode + "\")' />";
+				var content = "<input type='button' value='删除' onclick='delRow(\"" + row.code + "\")' />";
 				content += "<input type='button' value='修改' onclick='updateRow(\"" + idx + "\")' />";
 				content += "<input type='button' value='打印并下载' onclick='printParts(" + idx + ")' />";
 				return content;	
@@ -103,7 +103,7 @@ $("#orderList").datagrid({//往哪里添加table
     
     ]],
     pagination : true,
-	pageList : [ 3, 5, 10 ],
+	pageList : [3,5,10 ],
 	pageSize : 10,
     
 });
@@ -119,7 +119,7 @@ $("#orderList").datagrid({//往哪里添加table
 	var day = date.getDate();
 	var h = date.getHours();
 	var m = date.getMinutes();
-	return "MTBJ"+year+month+day+h+m;
+	return "MTXT"+year+month+day+h+m;
    }
  function getAddDate(){
     var date = new Date();
@@ -128,12 +128,35 @@ $("#orderList").datagrid({//往哪里添加table
     var day = date.getDate();
     return year+"-"+month+"-"+day;
 }
+//批量删除客户
+function delBatchOrder(){
+	var rows = $("#orderList").datagrid("getSelections");//得到被select的一个数组
+	if(rows.length == 0)
+		$.messager.alert("信息提示","请选择至少一条记录");
+	else{
+		$.messager.confirm("删除确认","确实要删除记录吗？",function(r){
+			if(r){                                 //如果点击了确定则执行			    
+				for(var i = 0; i < rows.length; i++){
+					var code=rows[i].code;
+				   $.ajax({
+				     url:'/jereh/saleOrder/DeleteSaleOrderServlet',
+				     data:{'code':code},
+				     success:function(data){
+				     	$("#orderList").datagrid("reload");	
+				     }		    
+		       	 	});			
+			}
+			}
+		
+		});
+	}
+}   
    
 function delRow(code){
     $.messager.confirm("删除提醒","确认删除吗？",function(r){
     if(r){
       $.ajax({
-        url:'/jereh/SaleQuotation/DeleteSaleQuotationServlet',
+        url:'/jereh/saleOrder/DeleteSaleOrderServlet',
         data:{'code':code},
         success:function(data){
           $("#orderList").datagrid("reload");
@@ -146,14 +169,14 @@ function show(code){
    $("#codeinfo").text(code);
    $("#showData").show();
    $("#showList").datagrid({
-       url:'/jereh/SaleQuotation/GetSaleQuotationDetailServlet',
+       url:'/jereh/saleOrder/GetSaleOrder_DetailServlet',
        queryParams:{'code':code},
        columns:[[{field:'code',title:'报价单号',fixed:true},
-                 {field:'scode',title:'件号',fixed:true},
-                 {field:'pcode',title:'配件名称',fixed:true},
-                 {field:'nums',title:'配件品牌',fixed:true},
-                 {field:'price',title:'配件型号',fixed:true},
-                 {field:'deliveryMode',title:'数量',fixed:true},
+                 {field:'partsNo',title:'件号',fixed:true},
+                 {field:'partsName',title:'配件名称',fixed:true},
+                 {field:'partsBrand',title:'配件品牌',fixed:true},
+                 {field:'partsModel',title:'配件型号',fixed:true},
+                 {field:'nums',title:'数量',fixed:true},
                   {field:'price',title:'金额',fixed:true},
                  {field:'remarks',title:'备注',fixed:true}
        ]]
@@ -217,6 +240,7 @@ function showName(){
    $("#cusList").datagrid({  
        onDblClickRow:function(idx, row){
           var row=$("#cusList").datagrid("getRows")[idx];
+          var customerCode=row.code;
           var code=row.code;
           var csName=row.csName;
           var contacter=row.contacter;
@@ -227,6 +251,7 @@ function showName(){
 		  $("input[name='contacter']").val(contacter);
 		   $("input[name='telphone']").val(telphone);
 		    $("input[name='fax']").val(fax);
+		       $("input[name='customerCode']").val(customerCode);
        },
         url:'/jereh/BaseCustomerSupplier/GetBaseCustomerSupplierServlet',
        toolbar:'#cusListTb',
@@ -243,37 +268,48 @@ function addParts(){
    $("#parts").dialog({title:"选择配件"});
    $("#parts").dialog("open");
    $("#parList").datagrid({
-       url:'',
+       url:'/jereh/saleOrder_deatil/GetSaleOrder_detailtServlet',
        toolbar:'#parListTb',
-	   idField:'',
-       columns:[[{field:'',title:'件号',fixed:true},
-       			 {field:'',title:'配件名称',fixed:true},
-       			 {field:'',title:'配件品牌',fixed:true},
-       			 {field:'',title:'配件型号',fixed:true},
+	   idField:'partsNo',
+       columns:[[{field:'partsNo',title:'件号',fixed:true},
+       			 {field:'partsName',title:'配件名称',fixed:true},
+       			 {field:'partsBrand',title:'配件品牌',fixed:true},
+       			 {field:'partsModel',title:'配件型号',fixed:true},
        			 {field:'',title:'所属仓库',fixed:true},
-       			 {field:'',title:'销售单价',fixed:true},
+       			 {field:'salePrice',title:'销售单价',fixed:true},
        			 {field:'',title:'库存量',fixed:true},
        			 {field:'',title:'上次价格',fixed:true},
-       			 {field:'',title:'备注',fixed:true},
+       			 {field:'remarks',title:'备注',fixed:true},
    ]]});
    
+}
+function searchOrder(){	
+	var searchCode=$("input[name='searchCode']").val();
+	var startDate=$("input[name='startDate']").val();
+	var endDate=$("input[name='endDate']").val();
+	$("#orderList").datagrid("reload",{'searchCode':searchCode,'startDate':startDate,'endDate':endDate});
+}
+
+//导出excel
+function outExcel(){
+	window.location.href="/jereh/saleOrder/OutExcleSaleOrderServlet";
 }
 </script>
 	</head>
 	<body>
 	<div id="orderList"></div>
 		<div id="barListTb">
-			<form action="" name="search" method="post" class="search">
+			<form action="/jereh/saleOrder/GetSaleOrderServlet" name="search" method="post" class="search">
 				<b>检索条件:</b>
-				订单编号:<input type="text" name="searchcode" />
+				订单编号:<input type="text" name="searchCode" />
 				开始日期:<input type="text" class="easyui-datebox" name="startDate" />
 				结束日期:<input type="text" class="easyui-datebox" name="endDate" />
-				<input type="button" value="搜索" onclick="search()"/>
+				<input type="button" value="搜索" onclick="searchOrder()"/>
 				<input type="reset" value="重置" />
 				</form>
 				<button class="easyui-linkbutton" iconCls="icon-search" onclick="SearchData()">查询</button>
 				<button class="easyui-linkbutton" iconCls="icon-add" onclick="addData()">增加</button>
-				<button class="easyui-linkbutton" iconCls="icon-remove" onclick="del()">批量删除</button>
+				<button class="easyui-linkbutton" iconCls="icon-remove" onclick="delBatchOrder()">批量删除</button>
 				<button class="easyui-linkbutton" iconCls="icon-ok" onclick="outExcel()">导出excel</button>		
 		</div>
 		<div id="showData">
@@ -284,6 +320,7 @@ function addParts(){
 	<div id="dg" style="padding:20px">
     <form action="/jereh/saleOrder/UpdateSaleOrderServlet" >
     <input type="hidden" name="customerName">
+     <input type="hidden" name="customerCode">
      <input type="hidden" name="opt" />
       <table border="1" style="border-collapse:collapse;">   
         <tr><td class="td1"><span style="color:red">*</span>订单编号：</td><td class="td2"><input name="code" type="text"></td>
@@ -295,7 +332,7 @@ function addParts(){
         <tr><td class="td1">运输方式</td><td class="td2">
         <select name="trans">
         <option value="1">圆通快递</option>
-        <option value="2">申通快递</option>
+        <option value="2">申通快递</option>	
         <option value="3">顺丰快递</option>
         </select>
         </td>
@@ -328,7 +365,7 @@ function addParts(){
           	客户代码<input type="text"> 
           	客户名称<input type="text">
           	<input type="button" value="搜索" onclick=""/>
-			<input type="reset" value="重置" />
+			<input type="reset" value="重置" />	
        </form>
        </div>
 	   	<div id="cusList"></div>

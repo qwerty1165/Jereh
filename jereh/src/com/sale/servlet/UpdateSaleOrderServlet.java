@@ -46,8 +46,9 @@ public class UpdateSaleOrderServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		saleOrder.setCustomerCode(request.getParameter("customerName"));
+		saleOrder.setCustomerCode(request.getParameter("customerCode"));
 		saleOrder.setCsName(request.getParameter("csName"));
-		saleOrder.setContacter(request.getParameter("contacter"));
+		saleOrder.setContacter(new String(request.getParameter("contacter").getBytes("iso8859-1"),"utf-8"));
 		saleOrder.setTelphone(request.getParameter("telphone"));
 		saleOrder.setFax(request.getParameter("fax"));
 		saleOrder.setTrans(request.getParameter("trans"));
