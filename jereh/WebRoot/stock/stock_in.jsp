@@ -60,7 +60,7 @@ $(function(){
 	});	
 	$("#parts").dialog("close");
 	
-	
+	//详细信息
 	$("#detailInfo").hide();
 	
 	//表头列表
