@@ -120,7 +120,8 @@ $("#barList").datagrid({//往哪里添加table
 	var day = date.getDate();
 	var h = date.getHours();
 	var m = date.getMinutes();
-	return "MTBJ"+year+month+day+h+m;
+    var s = date.getSeconds();
+	return "MTBJ"+year+month+day+h+m+s;
    }
  function getAddDate(){
     var date = new Date();
@@ -129,7 +130,7 @@ $("#barList").datagrid({//往哪里添加table
     var day = date.getDate();
     return year+"-"+month+"-"+day;
 }
-   
+//删除   
 function delRow(code){
     $.messager.confirm("删除提醒","确认删除吗？",function(r){
     if(r){
@@ -143,6 +144,30 @@ function delRow(code){
     }
     });
 }
+//批量删除 
+function del(){
+   var rows = $("#barList").datagrid("getSelections");//得到被select的一个数组
+	if(rows.length == 0){
+		$.messager.alert("信息提示","请选择一条记录");
+	}else{
+		$.messager.confirm("删除确认","确实要删除记录吗？",function(r){
+			if(r){//如果点击了确定则执行			    
+				for(var i = 0; i < rows.length; i++){
+					var code=rows[i].code;
+				   $.ajax({
+				     url:'/jereh/SaleQuotation/DeleteSaleQuotationServlet',
+				     data:{'code':code},
+				     success:function(data){
+				     	$("#barList").datagrid("reload");	
+				     }		    
+		       	 	});			
+			   }
+			}
+		});
+		}
+}
+
+
 function show(code){
    $("#codeinfo").text(code);
    $("#showData").show();
@@ -167,6 +192,7 @@ function showDailog(stitle){
 function closeDialog(){
 	$("#dg").dialog("close");
 }
+
 //添加订单
 function addData(){
 	showDailog("添加报价单");	
@@ -180,6 +206,7 @@ function addData(){
 	$("input[name='fax']").val("");
 	$("input[name='remarks']").val("");
 }
+
 //修改订单
 function updateRow(idx){
 	showDailog("修改报价单");
@@ -206,11 +233,27 @@ function updateRow(idx){
     $("#List").datagrid({
 		url:'/jereh/SaleQuotation/GetSaleQuotationDetailServlet',
 		queryParams:{'code':code},
-		columns:[[{field:'partsNo',title:'件号',fixed:true},
+		columns:[[{field:'partsNo',title:'件号',fixed:true,
+					   formatter:function(val,row,idx){
+					             return row.baseParts.partsNo;
+					              }
+				  },
 		          {field:'pcode',title:'件号',hidden:true},
-		          {field:'partsName',title:'配件名称',fixed:true},
-		          {field:'partsBrand',title:'配件品牌',fixed:true},
-		          {field:'partsModel',title:'配件型号',fixed:true},
+		          {field:'partsName',title:'配件名称',fixed:true,
+		                formatter:function(val,row,idx){
+					             return row.baseParts.partsName;
+					              }
+		          },
+		          {field:'partsBrand',title:'配件品牌',fixed:true,
+		                formatter:function(val,row,idx){
+					             return row.baseParts.partsBrand;
+					              }
+		          },
+		          {field:'partsModel',title:'配件型号',fixed:true,
+		                formatter:function(val,row,idx){
+					             return row.baseParts.partsModel;
+					              }
+		          },
 		          {field:'nums',title:'数量',fixed:true},
 		          {field:'price',title:'单价',fixed:true},
 		          {field:'numsPrice',title:'金额',fixed:true,
@@ -225,6 +268,8 @@ function updateRow(idx){
 											return content;}}]]		
   });
 }
+
+//选择客户
 function showName(){
    $("#customer").dialog({title:"请选择客户"});
    $("#customer").dialog("open");
@@ -252,53 +297,116 @@ function showName(){
        			 {field:'fax',title:'传真',fixed:true},
        			 {field:'adress',title:'地址',fixed:true},
    	  	]],   		
-        onDblClickRow:function(idx, row){
-          var row=$("#cusList").datagrid("getRows")[idx];
-          var code=row.code;
-          var csName=row.csName;
-          var contacter=row.contacter;
-          var fax = row.fax;
-          var telphone = row.telphone;
-          $("input[name='customercode']").val(code);
-		  $("input[name='csName']").val(csName);
-		  $("input[name='contacter']").val(contacter);
-		  $("input[name='fax']").val(fax);
-          $("input[name='telphone']").val(telphone);		  
-       },
-
+      
    }); 
 }
+
+//添加配件
 function addParts(){
    $("#parts").dialog({title:"选择配件"});
    $("#parts").dialog("open");
    $("#parList").datagrid({
-       url:'',
+       url:'/jereh/SaleQuotation/GetSaleQuotationPartsServlet',
        toolbar:'#parListTb',
-	   idField:'',
-       columns:[[{field:'',title:'件号',fixed:true},
-       			 {field:'',title:'配件名称',fixed:true},
-       			 {field:'',title:'配件品牌',fixed:true},
-       			 {field:'',title:'配件型号',fixed:true},
-       			 {field:'',title:'所属仓库',fixed:true},
-       			 {field:'',title:'销售单价',fixed:true},
-       			 {field:'',title:'库存量',fixed:true},
-       			 {field:'',title:'上次价格',fixed:true},
-       			 {field:'',title:'备注',fixed:true},
-   ]]});
-   
+	   idField:'partscode',
+       columns:[[{field:'partsNo',title:'件号',fixed:true,
+                  formatter:function(val,row,idx){
+		             return row.baseParts.partsNo;
+		              }
+                 },
+       			 {field:'partsName',title:'配件名称',fixed:true,
+       			  formatter:function(val,row,idx){
+		             return row.baseParts.partsName;
+		              }
+       			 },
+       			 {field:'partsBrand',title:'配件品牌',fixed:true,
+       			 formatter:function(val,row,idx){
+		             return row.baseParts.partsBrand;
+		              }
+       			 }, 
+       			 {field:'partsModel',title:'配件型号',fixed:true,
+       			   formatter:function(val,row,idx){
+       			     return row.baseParts.partsModel;
+		              }
+       			 },
+       			 {field:'warehouse',title:'所属仓库',fixed:true,
+       			 	   formatter:function(val,row,idx){
+			              return "主仓库";}
+			              },
+       			 {field:'saleprice',title:'销售单价',fixed:true,
+       			     formatter:function(val,row,idx){
+       			       return row.baseParts.saleprice;
+		                }
+       			 },
+       			 {field:'nums',title:'库存量',fixed:true ,
+       			    formatter:function(val,row,idx){
+       			       return row.stock.saleprice;
+		                }
+       			 },
+       			 {field:'price',title:'上次价格',fixed:true},
+       			 {field:'remarks',title:'备注',fixed:true},
+       			 {field:'partscode',title:'配件编号',hidden:true,
+       			    formatter:function(val,row,idx){
+       			     return row.baseParts.partscode;
+		              }
+       			 },
+       			 {field:'deliveryMode',title:'交货期',hidden:true}
+       			 
+     ]],
+     onDblClickRow:function(idx, row){
+          var row=$("#parList").datagrid("getRows")[idx];
+          var partsNo=row.partsNo;
+          var partsName=row.partsName;
+          var partsBrand=row.partsBrand;
+          var partsModel =row.partsModel;
+          var nums = row.nums;
+          var price = row.price;
+          var deliveryMode = row.deliveryMode;
+          var remarks = row.remarks;	
+          $('#List').datagrid('appendRow',{
+	            partsNo: partsNo,
+				partsName: partsName,
+				partsBrand:partsBrand,
+				partsModel:partsModel,
+				nums:nums,
+				price:price,
+				deliveryMode:deliveryMode,
+				remarks:remarks
+				});
+      
+       },
+                
+     });   
+  
+}
+
+//查询
+function searchList(){
+ // var startDate=$("input[name='startDate']").val();
+ 
+  var code=$("input[name='searchcode']").val();
+  var startDate=$("input[name='startDate']").val();
+ // $("#startDate").datebox("setValue",);
+  var endDate=$("input[name='endDate']").val();
+  var csName=$("input[name='searchcsName']").val();
+  $("#barList").datagrid("reload",{'code':code,'startDate':startDate,'endDate':endDate,'csName':csName});
+}
+//导出Excel
+function outExcel(){
+  window.location.href='/jereh/SaleQuotation/OutputExcelSaleQuotationServlet';
 }
 </script>
 	</head>
 	<body>
-	<div id="barList"></div>
+
 		<div id="barListTb">
 			<form action="" name="search" method="post" class="search">
 				<b>检索条件:</b>
 				报价单号:<input type="text" name="searchcode" />
-				开始日期:<input type="text" class="easyui-datebox" name="startTime" />
-				结束日期:<input type="text" class="easyui-datebox" name="endTime" />
-				客户名称:<input type="text" name="" />
-				<input type="button" value="搜索" onclick="search()"/>
+				开始日期:<input type="text" class="easyui-datebox" id="startDate" name="startDate" />
+				结束日期:<input type="text" class="easyui-datebox" name="endDate" />
+				客户名称:<input type="text" name="searchcsName" />
+				<input type="button" value="搜索" onclick="searchList()"/>
 				<input type="reset" value="重置" />
 				</form>
 				<button class="easyui-linkbutton" iconCls="icon-search" onclick="SearchData()">查询</button>
@@ -306,6 +414,7 @@ function addParts(){
 				<button class="easyui-linkbutton" iconCls="icon-remove" onclick="del()">批量删除</button>
 				<button class="easyui-linkbutton" iconCls="icon-ok" onclick="outExcel()">导出excel</button>		
 		</div>
+			<div id="barList"></div>
 		<div id="showData">
 		单据编号为: <strong id="codeinfo"></strong>的明细如下列！
 		<div id="showList"></div>

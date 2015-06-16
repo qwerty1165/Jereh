@@ -54,7 +54,7 @@ public class UpdateSaleQuotationServlet extends HttpServlet {
 		saleQuotation.setFax(request.getParameter("fax"));
 		saleQuotation.setRemarks(request.getParameter("remarks"));
 		
-		if(opt=="1"){
+		if(opt.equals("1")){
 			saleQuotationService.addSaleQuotation(saleQuotation);
 			response.sendRedirect("/jereh/sale/salequotation.jsp");
 		}

@@ -18,14 +18,15 @@ import net.sf.json.JsonConfig;
 import com.common.util.JSONDateProcessor;
 import com.sale.entity.SaleQuotation_Detail;
 import com.sale.service.SaleQuotationService;
+import com.sale.service.impl.SaleOrderServiceImpl;
 import com.sale.service.impl.SaleQuotationServiceImpl;
 
-public class GetSaleQuotationDetailServlet extends HttpServlet {
+public class GetSaleQuotationPartsServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetSaleQuotationDetailServlet() {
+	public GetSaleQuotationPartsServlet() {
 		super();
 	}
 
@@ -42,7 +43,7 @@ public class GetSaleQuotationDetailServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		this.doPost(request, response);
+		doPost(request, response);
 	}
 
 	/**
@@ -58,17 +59,16 @@ public class GetSaleQuotationDetailServlet extends HttpServlet {
 	SaleQuotationService saleQuotationService = new SaleQuotationServiceImpl();
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-        request.setCharacterEncoding("utf-8");
+
+		request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/json;charset=utf-8");
-        String scode = request.getParameter("code");
         
         JsonConfig config=new JsonConfig();
 		config.registerJsonValueProcessor(Date.class,
 				new JSONDateProcessor("yyyyƒÍMM‘¬dd»’"));
-		
-	    List<SaleQuotation_Detail> list = saleQuotationService.showDetail(scode);
+		SaleQuotation_Detail saleQuotation_Detail = new SaleQuotation_Detail();
+	    List<SaleQuotation_Detail> list = saleQuotationService.showPartsList(saleQuotation_Detail);
         JSONObject jsonObject=new JSONObject();
 		Map attrs=new HashMap();		
 		 attrs.put("rows", list);
