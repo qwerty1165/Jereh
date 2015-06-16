@@ -89,7 +89,7 @@ function getCurDate(){
 	return "MTPJ"+year+month+day+hour+minute+second;  
 	}
 
-//批量删除客户
+//批量删除
 function delBatchParts(){
 	var rows = $("#partsList").datagrid("getSelections");//得到被select的一个数组
 	if(rows.length == 0)

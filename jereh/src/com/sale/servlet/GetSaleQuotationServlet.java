@@ -3,6 +3,8 @@ package com.sale.servlet;
 import java.io.IOException;
 
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +58,9 @@ public class GetSaleQuotationServlet extends HttpServlet {
 		
 		SaleQuotation sq = new SaleQuotation();
 		String code = request.getParameter("code");
-		
+		String startdate = request.getParameter("startDate");
+		String enddate = request.getParameter("endDate");
+		String csName = request.getParameter("csName");
 		JsonConfig config=new JsonConfig();
 		config.registerJsonValueProcessor(Date.class,
 				new JSONDateProcessor("yyyy-MM-dd"));
@@ -64,8 +68,28 @@ public class GetSaleQuotationServlet extends HttpServlet {
 		if(code!=null&&!code.equals("")){
 			sq.setCode(code);	
 		}
-		
-		PageBean pb = saleQuotationService.findList(sq, Integer.parseInt(pageNo),Integer.parseInt(pageSize));
+		Date startDate=null;
+		if(startdate!=null&&!startdate.equals("")){
+			try {
+				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startdate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		Date endDate=null;
+		if(enddate!=null&&!enddate.equals("")){
+			try {
+				endDate = new SimpleDateFormat("yyyy-MM-dd").parse(enddate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(csName!=null&&!csName.equals("")){
+			sq.setCsName(csName);
+		}
+		PageBean pb = saleQuotationService.findList(sq,startDate,endDate,Integer.parseInt(pageNo),Integer.parseInt(pageSize));
 		JSONObject jsonObject=new JSONObject();
 		Map attrs=new HashMap();
 		attrs.put("rows", pb.getData());

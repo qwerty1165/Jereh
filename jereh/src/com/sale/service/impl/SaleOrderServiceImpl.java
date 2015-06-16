@@ -20,13 +20,13 @@ public class SaleOrderServiceImpl implements SaleOrderService {
 	@Override
 	public int insertSaleOrder(SaleOrder saleOrder) {
 		// TODO Auto-generated method stub
-		return 0;
+		return saleOrderDao.insertSaleOrder(saleOrder);
 	}
 
 	@Override
 	public int deleteSaleOrder(String code) {
 		// TODO Auto-generated method stub
-		return 0;
+		return saleOrderDao.deleteSaleOrder(code);
 	}
 
 	@Override

@@ -64,7 +64,7 @@ public class GetSaleOrderServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		String code=request.getParameter("code");
+		String code=request.getParameter("searchCode");
 		
 		PageBean pageBean=saleOrderService.findSaleOrder(code,date1,date2, 
 				Integer.parseInt(pageNo),Integer.parseInt(pageSize));
